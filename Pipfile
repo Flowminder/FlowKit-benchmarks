@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+asv = "*"
+virtualenv = "*"
+cython = "*" # Required until pyproj provide a wheel for 3.7
+pyproj = {git = "https://github.com/jswhit/pyproj.git"} # Required until pyproj provide a wheel for 3.7
+tohu = {git = "https://github.com/maxalbert/tohu.git"}
+synthie = {git = "ssh://git@github.com/Flowminder/synthie.git"}
+docopt = "*"
+sh = "*"
+docker = "*"
+halo = "*"
+
+[dev-packages]
+ipython = "*"
+ipdb = "*"
+
+[requires]
+python_version = "3.7"
