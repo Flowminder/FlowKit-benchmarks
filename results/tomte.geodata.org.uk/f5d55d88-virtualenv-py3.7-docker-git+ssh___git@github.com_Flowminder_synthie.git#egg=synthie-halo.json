@@ -1,0 +1,584 @@
+{
+    "benchmark_version": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": "2b5a292afc5db7a8707dcce8c29f1107aec1901d4cc92e4dac82f089db4cfd69",
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": "bde1065ea280e8397b25cbb92d172580bc35e02afaa92451459414cc7ca68e3f",
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": "91702f6f9feee787e59bea38e7c6db1214b1b9ed48062c08ce05d02f309f61be",
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": "8552ae0b97b70fe5e5b73091119563c77561a81d32bb55ce96aacf388fb97671",
+        "benchmarks.DailyLocation.time_daily_location": "f344a70e9089de3e7d94dd36a777132803a7aee682b002ae14605f0375c7dad1",
+        "benchmarks.DailyLocation.track_daily_location_cost": "1807c2e59a83bc612ca5c75db5036cb51417bff32882f36b30cff37b3af722ea",
+        "benchmarks.FlowSuite.time_flow": "b9cd4d8dbff08109271998cabe7a7470758112e8f9f912efc94f06e00112ada7",
+        "benchmarks.FlowSuite.track_flow_cost": "0f8aaf415e19b6a68444ce7a0066725d61fe4fce9c3ef140100dc61eceba8421",
+        "benchmarks.ModalLocationWithCaching.time_modal_location": "567c00654fab574eaf7ae4c9b6bc3e6e11f60cb9ffb6e5144eebf09b2c650a35",
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": "ffdd02ede688977fad2c1ac935a3a459b1ec767b2fd845b3b12add9b4d948f7a",
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": "c8c82ae515935064c23d58c8d65ecd86af326292491da85307e99fe282d0ef6b",
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": "47813d71b2590d9dd53ba7111486f1e6d9b883cd9c6137940a81ed2eaef89b58"
+    },
+    "commit_hash": "f5d55d88a2aa2db5539655cac243ec805f5eb446",
+    "date": 1548676131000,
+    "ended_at": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1548703011842,
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1548703014331,
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1548703017607,
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1548703020830,
+        "benchmarks.DailyLocation.time_daily_location": 1548703022400,
+        "benchmarks.DailyLocation.track_daily_location_cost": 1548703023622,
+        "benchmarks.FlowSuite.time_flow": 1548704247912,
+        "benchmarks.FlowSuite.track_flow_cost": 1548704253047,
+        "benchmarks.ModalLocationWithCaching.time_modal_location": 1548707824046,
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1548712625015,
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1548703008854,
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1548712628153
+    },
+    "env_name": "virtualenv-py3.7-docker-git+ssh___git@github.com_Flowminder_synthie.git#egg=synthie-halo",
+    "params": {
+        "arch": "x86_64",
+        "cpu": "Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz",
+        "docker": "",
+        "git+ssh://git@github.com/Flowminder/synthie.git#egg=synthie": "",
+        "halo": "",
+        "machine": "tomte.geodata.org.uk",
+        "os": "Linux 3.10.0-693.21.1.el7.x86_64",
+        "python": "3.7",
+        "ram": "131746656"
+    },
+    "profiles": {},
+    "python": "3.7",
+    "requirements": {
+        "docker": "",
+        "git+ssh://git@github.com/Flowminder/synthie.git#egg=synthie": "",
+        "halo": ""
+    },
+    "results": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": null
+        },
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                null,
+                28.0,
+                null,
+                1474.49
+            ]
+        },
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": null
+        },
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                null,
+                9603.54
+            ]
+        },
+        "benchmarks.DailyLocation.time_daily_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": null
+        },
+        "benchmarks.DailyLocation.track_daily_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                null,
+                1474.44
+            ]
+        },
+        "benchmarks.FlowSuite.time_flow": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "1",
+                    "2"
+                ]
+            ],
+            "result": [
+                null,
+                0.9717608112841845,
+                0.12545781023800373
+            ],
+            "stats": [
+                null,
+                {
+                    "ci_99": [
+                        0.6692038848996162,
+                        1.0178779512643814
+                    ],
+                    "max": 1.0178779512643814,
+                    "mean": 0.9349249857477844,
+                    "min": 0.6692038848996162,
+                    "number": 1,
+                    "q_25": 0.9302110448479652,
+                    "q_75": 0.9949938450008631,
+                    "repeat": 8,
+                    "std": 0.10532204548201993
+                },
+                {
+                    "ci_99": [
+                        0.11360052973031998,
+                        0.18610754981637
+                    ],
+                    "max": 0.18610754981637,
+                    "mean": 0.1348973259329796,
+                    "min": 0.11360052973031998,
+                    "number": 1,
+                    "q_25": 0.1181641286239028,
+                    "q_75": 0.13394357729703188,
+                    "repeat": 10,
+                    "std": 0.02388288533340953
+                }
+            ]
+        },
+        "benchmarks.FlowSuite.track_flow_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "1",
+                    "2"
+                ]
+            ],
+            "result": [
+                9603.42,
+                5297.07,
+                628.85
+            ]
+        },
+        "benchmarks.ModalLocationWithCaching.time_modal_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "3",
+                    "7"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                1.600364912301302,
+                1.761793825775385,
+                1.081437360495329,
+                null,
+                null,
+                null
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        1.3145712018013,
+                        1.8684547320008278
+                    ],
+                    "max": 1.8684547320008278,
+                    "mean": 1.6011536398695574,
+                    "min": 1.3145712018013,
+                    "number": 1,
+                    "q_25": 1.4558752961456776,
+                    "q_75": 1.7297794669866562,
+                    "repeat": 9,
+                    "std": 0.18697438181402123
+                },
+                {
+                    "ci_99": [
+                        1.4241265319287777,
+                        2.0156246460974216
+                    ],
+                    "max": 2.0156246460974216,
+                    "mean": 1.747822807636112,
+                    "min": 1.4241265319287777,
+                    "number": 1,
+                    "q_25": 1.5765788471326232,
+                    "q_75": 1.911041270941496,
+                    "repeat": 8,
+                    "std": 0.20205556667155816
+                },
+                {
+                    "ci_99": [
+                        0.8555085137486458,
+                        1.3602386601269245
+                    ],
+                    "max": 1.3602386601269245,
+                    "mean": 1.0814781640656292,
+                    "min": 0.8555085137486458,
+                    "number": 1,
+                    "q_25": 0.9515147367492318,
+                    "q_75": 1.196522087790072,
+                    "repeat": 8,
+                    "std": 0.16304818977745075
+                },
+                null,
+                null,
+                null
+            ]
+        },
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "3",
+                    "7"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                null,
+                9850.48,
+                5428.97,
+                null,
+                null,
+                null
+            ]
+        },
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'cell'",
+                    "'admin3'"
+                ],
+                [
+                    "'day'",
+                    "'min'"
+                ],
+                [
+                    "'out'",
+                    "'both'"
+                ]
+            ],
+            "result": null
+        },
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'cell'",
+                    "'admin3'"
+                ],
+                [
+                    "'day'",
+                    "'min'"
+                ],
+                [
+                    "'out'",
+                    "'both'"
+                ]
+            ],
+            "result": [
+                6657.91,
+                8953.45,
+                7399.52,
+                10436.63,
+                8162.37,
+                11517.77,
+                8909.96,
+                13012.91
+            ]
+        }
+    },
+    "started_at": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1548703008854,
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1548703011849,
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1548703014336,
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1548703017609,
+        "benchmarks.DailyLocation.time_daily_location": 1548703020832,
+        "benchmarks.DailyLocation.track_daily_location_cost": 1548703022403,
+        "benchmarks.FlowSuite.time_flow": 1548703023624,
+        "benchmarks.FlowSuite.track_flow_cost": 1548704247915,
+        "benchmarks.ModalLocationWithCaching.time_modal_location": 1548704253049,
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1548707824051,
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1548702999485,
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1548712625033
+    },
+    "version": 1
+}
