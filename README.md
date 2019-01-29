@@ -1,8 +1,10 @@
 # FlowKit benchmarks
 
-This is the benchmark suite for FlowKit.
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
-These benchmarks track the performance of various features in FlowKit over time.
+This is the benchmark suite for [FlowKit](https://github.com/Flowminder/FlowKit).
+
+These benchmarks track the performance of various features in FlowKit over time. The results can be seen at https://flowminder.github.io/FlowKit-benchmarks.
 
 The benchmarks are run using [airspeed velocity](https://asv.readthedocs.io/en/stable/).
 
