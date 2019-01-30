@@ -13,6 +13,11 @@ from flowmachine.features import (
     ModalLocation,
     Flows,
     TotalLocationEvents,
+    subscriber_location_cluster,
+    EventScore,
+    MeaningfulLocations,
+    MeaningfulLocationsAggregate,
+    MeaningfulLocationsOD,
 )
 from .utils import get_env_var
 from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
@@ -270,3 +275,200 @@ class TotalLocationEventsSuite:
 
     def track_total_location_events_cost(self, *args):
         return self.tle.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class HartiganClusterSuite:
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+        [(4, 17), "all"],
+        [0.1, 10.0],
+    ]
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["hours", "radius"]
+
+    def setup(self, *args):
+        self.query = subscriber_location_cluster(
+            "hartigan", "2016-01-01", "2016-01-07", hours=args[-4], radius=args[-3]
+        )
+        self.query.turn_off_caching()
+
+    def time_hartigan_cluster(self, *args):
+        _ = self.query.store().result()
+
+    def track_hartigan_cluster_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class EventScoreSuite:
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+        ["versioned-cell", "admin3"],
+        [(4, 17), "all"],
+    ]
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "hours"]
+
+    def setup(self, *args):
+        self.query = EventScore(
+            start="2016-01-01", stop="2016-01-07", level=args[-2], hours=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_event_score(self, *args):
+        _ = self.query.store().result()
+
+    def track_event_score_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsSuite:
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+        ["day", "unknown"],
+        [True, False],
+    ]
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["label", "caching"]
+
+    def setup(self, *args):
+        hc = subscriber_location_cluster(
+            "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+        )
+        es = EventScore(start="2016-01-01", stop="2016-01-07", level="versioned-site")
+        if args[-1]:
+            hc.store().result()
+            es.store().result()
+        self.query = MeaningfulLocations(
+            clusters=hc,
+            scores=es,
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label=args[-2],
+        )
+        self.query.turn_off_caching()
+
+    def time_meaningful_locations(self, *args):
+        _ = self.query.store().result()
+
+    def track_meaningful_locations_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsAggregateSuite:
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+        ["admin1", "admin3"],
+        [True, False],
+    ]
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
+
+    def setup(self, *args):
+        ml = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-01", stop="2016-01-07", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="unknown",
+        )
+        if args[-1]:
+            ml.store().result()
+        self.query = MeaningfulLocationsAggregate(
+            meaningful_locations=ml, level=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_meaningful_locations_aggregate(self, *args):
+        _ = self.query.store().result()
+
+    def track_meaningful_locations_aggregate_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsODSuite:
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+        ["admin1", "admin3"],
+        [True, False],
+    ]
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
+
+    def setup(self, *args):
+        ml1 = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-01", "2016-01-04", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-01", stop="2016-01-04", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="day",
+        )
+        ml2 = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-05", "2016-01-07", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-05", stop="2016-01-07", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="evening",
+        )
+        if args[-1]:
+            ml1.store().result()
+            ml2.store().result()
+        self.query = MeaningfulLocationsOD(
+            meaningful_locations_a=ml1, meaningful_locations_b=ml2, level=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_meaningful_locations_aggregate(self, *args):
+        _ = self.query.store().result()
+
+    def track_meaningful_locations_aggregate_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
