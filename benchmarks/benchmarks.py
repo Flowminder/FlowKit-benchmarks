@@ -24,8 +24,14 @@ from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
 
 
-def flowdb_config_params():
-    return [list(set(x)) for x in zip(*FLOWDB_CONFIGS)]
+def make_params(params_dict):
+    """
+    Return a list of params and a list of their names, including the FlowDB
+    params defined in config.py and any additional params in params_dict.
+    """
+    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + list(params_dict.values())
+    param_names = FLOWDB_CONFIG_PARAM_NAMES + list(params_dict.keys())
+    return params, param_names
 
 
 def get_benchmark_dbs_dir():
@@ -115,11 +121,12 @@ def teardown(*args):
 
 
 class DailyLocation:
-
-    params = flowdb_config_params() + [["last", "most-common"]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["daily_location_method"]
+    params, param_names = make_params(
+        {"daily_location_method": ["last", "most-common"]}
+    )
     timer = timeit.default_timer
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         self.query = daily_location(date="2016-01-01", method=args[-1])
@@ -134,10 +141,12 @@ class DailyLocation:
 
 
 class AggregateDailyLocation:
-    params = flowdb_config_params() + [[True, False], ["last", "most-common"]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["is_cached", "daily_location_method"]
+    params, param_names = make_params(
+        {"is_cached": [True, False], "daily_location_method": ["last", "most-common"]}
+    )
     timer = timeit.default_timer
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         dl = daily_location(date="2016-01-01", method=args[-1])
@@ -155,10 +164,12 @@ class AggregateDailyLocation:
 
 
 class ModalLocationWithCaching:
+    params, param_names = make_params(
+        {"n_cached": [0, 3, 7], "daily_location_method": ["last", "most-common"]}
+    )
     timer = timeit.default_timer
-    params = flowdb_config_params() + [[0, 3, 7], ["last", "most-common"]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["n_cached", "daily_location_method"]
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         dates = [
@@ -188,10 +199,10 @@ class ModalLocationWithCaching:
 
 
 class AggregateModalLocation:
+    params, param_names = make_params({"is_cached": [True, False]})
     timer = timeit.default_timer
-    params = flowdb_config_params() + [[True, False]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["is_cached"]
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         dates = [
@@ -218,10 +229,10 @@ class AggregateModalLocation:
 
 
 class FlowSuite:
+    params, param_names = make_params({"n_cached": [0, 1, 2]})
     timer = timeit.default_timer
-    params = flowdb_config_params() + [[0, 1, 2]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["n_cached"]
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         dates = [
@@ -249,14 +260,16 @@ class FlowSuite:
 
 
 class TotalLocationEventsSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "admin3"],
+            "interval": ["day", "min"],
+            "direction": ["out", "both"],
+        }
+    )
     timer = timeit.default_timer
-    params = flowdb_config_params() + [
-        ["cell", "admin3"],
-        ["day", "min"],
-        ["out", "both"],
-    ]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "interval", "direction"]
     timeout = 1200
+    version = 0
 
     def setup(self, *args):
         self.query = TotalLocationEvents(
@@ -276,8 +289,12 @@ class TotalLocationEventsSuite:
 
 
 class HartiganClusterSuite:
-    params = flowdb_config_params() + [[(4, 17), "all"], [0.1, 10.0]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["hours", "radius"]
+    params, param_names = make_params(
+        {"hours": [(4, 17), "all"], "radius": [0.1, 10.0]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
 
     def setup(self, *args):
         self.query = subscriber_location_cluster(
@@ -293,8 +310,12 @@ class HartiganClusterSuite:
 
 
 class EventScoreSuite:
-    params = flowdb_config_params() + [["versioned-cell", "admin3"], [(4, 17), "all"]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "hours"]
+    params, param_names = make_params(
+        {"level": ["versioned-cell", "admin3"], "hours": [(4, 17), "all"]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
 
     def setup(self, *args):
         self.query = EventScore(
@@ -310,8 +331,12 @@ class EventScoreSuite:
 
 
 class MeaningfulLocationsSuite:
-    params = flowdb_config_params() + [["day", "unknown"], [True, False]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["label", "caching"]
+    params, param_names = make_params(
+        {"label": ["day", "unknown"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
 
     def setup(self, *args):
         hc = subscriber_location_cluster(
@@ -350,8 +375,12 @@ class MeaningfulLocationsSuite:
 
 
 class MeaningfulLocationsAggregateSuite:
-    params = flowdb_config_params() + [["admin1", "admin3"], [True, False]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
+    params, param_names = make_params(
+        {"level": ["admin1", "admin3"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
 
     def setup(self, *args):
         ml = MeaningfulLocations(
@@ -392,8 +421,12 @@ class MeaningfulLocationsAggregateSuite:
 
 
 class MeaningfulLocationsODSuite:
-    params = flowdb_config_params() + [["admin1", "admin3"], [True, False]]
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
+    params, param_names = make_params(
+        {"level": ["admin1", "admin3"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
 
     def setup(self, *args):
         ml1 = MeaningfulLocations(
