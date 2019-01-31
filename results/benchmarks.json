@@ -52,7 +52,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "d3f587a26ebcbcfee69d9fc4841a2e7773f9a2134cfbefde9f7b22b781194951",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": {
@@ -103,7 +103,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "8858e222c27bb14edf33f546d713ff3e9b1d4b949730b3e22f28fe20e5279b92"
+        "version": "0"
     },
     "benchmarks.AggregateModalLocation.time_aggregate_modal_location": {
         "code": "class AggregateModalLocation:\n    def time_aggregate_modal_location(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass AggregateModalLocation:\n    def setup(self, *args):\n        dates = [\n            \"2016-01-01\",\n            \"2016-01-02\",\n            \"2016-01-03\",\n            \"2016-01-04\",\n            \"2016-01-05\",\n            \"2016-01-06\",\n            \"2016-01-07\",\n        ]\n        daily_locs = [daily_location(date=date) for date in dates]\n        ml = ModalLocation(*daily_locs)\n        if args[-1]:\n            ml.store().result()\n        self.query = ml.aggregate()\n        self.query.turn_off_caching()",
@@ -153,7 +153,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "d5952899f9505c178d68551d5e8566426ebf015af23862527d677a9f770b4220",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": {
@@ -199,7 +199,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "28064cead77f304c8c4bc7781a2ff9f9a48b3b2aafd8bc685d27fd44b1e7385b"
+        "version": "0"
     },
     "benchmarks.DailyLocation.time_daily_location": {
         "code": "class DailyLocation:\n    def time_daily_location(self, *args):\n    \n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass DailyLocation:\n    def setup(self, *args):\n        self.query = daily_location(date=\"2016-01-01\", method=args[-1])\n        self.query.turn_off_caching()",
@@ -249,7 +249,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "fff9aaba8052f5bd1e65fac5d935274e8651fe7a4a9d9752daeac04920b29ea6",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.DailyLocation.track_daily_location_cost": {
@@ -295,7 +295,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "cea899282349c067763a7d9d4b75cf7f365da2ca3ab9326318d6444e00406ced"
+        "version": "0"
     },
     "benchmarks.EventScoreSuite.time_event_score": {
         "code": "class EventScoreSuite:\n    def time_event_score(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass EventScoreSuite:\n    def setup(self, *args):\n        self.query = EventScore(\n            start=\"2016-01-01\", stop=\"2016-01-07\", level=args[-2], hours=args[-1]\n        )\n        self.query.turn_off_caching()",
@@ -347,10 +347,10 @@
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "b47b45a623b567ddc25f5636cb0a1e316758ec924ec3de4308b843dd4c3d5ce0",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.EventScoreSuite.track_event_score_cost": {
@@ -398,10 +398,10 @@
                 "'all'"
             ]
         ],
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "ceda9259bf06986107ef3fbebb2860806e029adfa2b0f229b6a9c33a5157e1ce"
+        "version": "0"
     },
     "benchmarks.FlowSuite.time_flow": {
         "code": "class FlowSuite:\n    def time_flow(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass FlowSuite:\n    def setup(self, *args):\n        dates = [\n            \"2016-01-01\",\n            \"2016-01-02\",\n            \"2016-01-03\",\n            \"2016-01-04\",\n            \"2016-01-05\",\n            \"2016-01-06\",\n            \"2016-01-07\",\n        ]\n        daily_locs = [daily_location(date=date) for date in dates]\n        mls = [ModalLocation(*daily_locs[:3]), ModalLocation(*daily_locs[3:])]\n        stored_mls = [ml.store() for ml in mls[: args[-1]]]\n        for ml in stored_mls:\n            ml.result()\n        self.query = Flows(*mls)\n        self.query.turn_off_caching()",
@@ -452,7 +452,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "dd6ec455f7e5b9fe744a9f2539a3f191ac222ff1e2fab33906002b8a10e394ed",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.FlowSuite.track_flow_cost": {
@@ -499,7 +499,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "ec3869ed8fa9530b332917e51487ec0a3c46e83a61a7d99c87771478dbc742ed"
+        "version": "0"
     },
     "benchmarks.HartiganClusterSuite.time_hartigan_cluster": {
         "code": "class HartiganClusterSuite:\n    def time_hartigan_cluster(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass HartiganClusterSuite:\n    def setup(self, *args):\n        self.query = subscriber_location_cluster(\n            \"hartigan\", \"2016-01-01\", \"2016-01-07\", hours=args[-2], radius=args[-1]\n        )\n        self.query.turn_off_caching()",
@@ -551,10 +551,10 @@
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "bf9076eb2d838dfaf8798924887cd8557d2f8696a78b3157c9280d4791196069",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": {
@@ -602,10 +602,10 @@
                 "10.0"
             ]
         ],
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "eda6c10b7a27cbe577537f0c6988bed7e4d36585268a81b426f78696ec5129ca"
+        "version": "0"
     },
     "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": {
         "code": "class MeaningfulLocationsAggregateSuite:\n    def time_meaningful_locations_aggregate(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass MeaningfulLocationsAggregateSuite:\n    def setup(self, *args):\n        ml = MeaningfulLocations(\n            clusters=subscriber_location_cluster(\n                \"hartigan\", \"2016-01-01\", \"2016-01-07\", radius=1.0\n            ),\n            scores=EventScore(\n                start=\"2016-01-01\", stop=\"2016-01-07\", level=\"versioned-site\"\n            ),\n            labels={\n                \"evening\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]\n                    ],\n                },\n                \"day\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]\n                    ],\n                },\n            },\n            label=\"unknown\",\n        )\n        if args[-1]:\n            ml.store().result()\n        self.query = MeaningfulLocationsAggregate(\n            meaningful_locations=ml, level=args[-2]\n        )\n        self.query.turn_off_caching()",
@@ -657,10 +657,10 @@
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "e609175a486abe8e7c1dfd85e80bdcb2277758a4a1419bb179daace603ad105f",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": {
@@ -708,10 +708,10 @@
                 "False"
             ]
         ],
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "177c3e73fbfad1686bd1d7d7c942d1590bf08f2a08a6dc96c22df8f91d127b31"
+        "version": "0"
     },
     "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": {
         "code": "class MeaningfulLocationsODSuite:\n    def time_meaningful_locations_aggregate(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass MeaningfulLocationsODSuite:\n    def setup(self, *args):\n        ml1 = MeaningfulLocations(\n            clusters=subscriber_location_cluster(\n                \"hartigan\", \"2016-01-01\", \"2016-01-04\", radius=1.0\n            ),\n            scores=EventScore(\n                start=\"2016-01-01\", stop=\"2016-01-04\", level=\"versioned-site\"\n            ),\n            labels={\n                \"evening\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]\n                    ],\n                },\n                \"day\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]\n                    ],\n                },\n            },\n            label=\"day\",\n        )\n        ml2 = MeaningfulLocations(\n            clusters=subscriber_location_cluster(\n                \"hartigan\", \"2016-01-05\", \"2016-01-07\", radius=1.0\n            ),\n            scores=EventScore(\n                start=\"2016-01-05\", stop=\"2016-01-07\", level=\"versioned-site\"\n            ),\n            labels={\n                \"evening\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]\n                    ],\n                },\n                \"day\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]\n                    ],\n                },\n            },\n            label=\"evening\",\n        )\n        if args[-1]:\n            ml1.store().result()\n            ml2.store().result()\n        self.query = MeaningfulLocationsOD(\n            meaningful_locations_a=ml1, meaningful_locations_b=ml2, level=args[-2]\n        )\n        self.query.turn_off_caching()",
@@ -763,10 +763,10 @@
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "d9452dd71add13d3ae50806e702a5c09f06694da82045996eee309dbd35934fe",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": {
@@ -814,10 +814,10 @@
                 "False"
             ]
         ],
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "98ba968974f2a0f41fe9b95e45358c3cdbdfd09ed9ad899e5ca7c26f8ebadbc0"
+        "version": "0"
     },
     "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": {
         "code": "class MeaningfulLocationsSuite:\n    def time_meaningful_locations(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass MeaningfulLocationsSuite:\n    def setup(self, *args):\n        hc = subscriber_location_cluster(\n            \"hartigan\", \"2016-01-01\", \"2016-01-07\", radius=1.0\n        )\n        es = EventScore(start=\"2016-01-01\", stop=\"2016-01-07\", level=\"versioned-site\")\n        if args[-1]:\n            hc.store().result()\n            es.store().result()\n        self.query = MeaningfulLocations(\n            clusters=hc,\n            scores=es,\n            labels={\n                \"evening\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]\n                    ],\n                },\n                \"day\": {\n                    \"type\": \"Polygon\",\n                    \"coordinates\": [\n                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]\n                    ],\n                },\n            },\n            label=args[-2],\n        )\n        self.query.turn_off_caching()",
@@ -869,10 +869,10 @@
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "9402b6de0255445083e40205f5c214425d8f876ae9cb941f6699bcd9caf275c5",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": {
@@ -920,10 +920,10 @@
                 "False"
             ]
         ],
-        "timeout": 60.0,
+        "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "1b6393d7163785989ab2abe8b5ccf868d404446204c30f423b64246327a86c62"
+        "version": "0"
     },
     "benchmarks.ModalLocationWithCaching.time_modal_location": {
         "code": "class ModalLocationWithCaching:\n    def time_modal_location(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass ModalLocationWithCaching:\n    def setup(self, *args):\n        dates = [\n            \"2016-01-01\",\n            \"2016-01-02\",\n            \"2016-01-03\",\n            \"2016-01-04\",\n            \"2016-01-05\",\n            \"2016-01-06\",\n            \"2016-01-07\",\n        ]\n        stored_daily_locs = [\n            daily_location(date=date, method=args[-1]).store()\n            for date in dates[: args[-2]]\n        ]\n        for d in stored_daily_locs:\n            d.result()\n        daily_locs = [daily_location(date=date, method=args[-1]) for date in dates]\n        self.query = ModalLocation(*daily_locs)\n        self.query.turn_off_caching()",
@@ -979,7 +979,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "162145b4c28a1d6a90c928f42b1848014c8509c206116110c7511ecaec285b3a",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.ModalLocationWithCaching.track_modal_location_cost": {
@@ -1031,7 +1031,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "4d6344bef1db9be17922013e2eece99c264c64a87a28c85762f2dfd75745115b"
+        "version": "0"
     },
     "benchmarks.TotalLocationEventsSuite.time_total_location_events": {
         "code": "class TotalLocationEventsSuite:\n    def time_total_location_events(self, *args):\n        _ = self.query.store().result()\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        db_port=flowdb_container.port,\n        db_host=flowdb_container.host,\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(\n        f\"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}.\"\n    )\n    flowmachine.core.Query.redis.flushdb()\n    print(\"Wiping any cache tables.\")\n    for q in flowmachine.core.Query.get_stored():\n        q.invalidate_db_cache()\n\nclass TotalLocationEventsSuite:\n    def setup(self, *args):\n        self.query = TotalLocationEvents(\n            \"2016-01-01\",\n            \"2016-01-07\",\n            level=args[-3],\n            interval=args[-2],\n            direction=args[-1],\n        )\n        self.query.turn_off_caching()",
@@ -1091,7 +1091,7 @@
         "timeout": 1200,
         "type": "time",
         "unit": "seconds",
-        "version": "46d7bcbf164613ba4273698c81f70922b48611503863634aa5073e62ea8f9bf7",
+        "version": "0",
         "warmup_time": -1
     },
     "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": {
@@ -1147,7 +1147,7 @@
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
-        "version": "09127a00b85c3eb39460ee21a467dd5a682bc3bad53715f579b0c4703272a2c2"
+        "version": "0"
     },
     "version": 2
 }
