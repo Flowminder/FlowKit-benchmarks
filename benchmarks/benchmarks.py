@@ -281,7 +281,7 @@ class HartiganClusterSuite:
 
     def setup(self, *args):
         self.query = subscriber_location_cluster(
-            "hartigan", "2016-01-01", "2016-01-07", hours=args[-4], radius=args[-3]
+            "hartigan", "2016-01-01", "2016-01-07", hours=args[-2], radius=args[-1]
         )
         self.query.turn_off_caching()
 
