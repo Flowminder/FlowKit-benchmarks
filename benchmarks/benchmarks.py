@@ -24,6 +24,10 @@ from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
 
 
+def flowdb_config_params():
+    return [list(set(x)) for x in zip(*FLOWDB_CONFIGS)]
+
+
 def get_benchmark_dbs_dir():
     conf_file_path = Path(os.getenv("ASV_CONF_DIR"))
     with open(conf_file_path / "asv.conf.json") as fin:
@@ -112,28 +116,25 @@ def teardown(*args):
 
 class DailyLocation:
 
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [["last", "most-common"]]
+    params = flowdb_config_params() + [["last", "most-common"]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["daily_location_method"]
     timer = timeit.default_timer
     timeout = 1200
 
     def setup(self, *args):
-        self.dl = daily_location(date="2016-01-01", method=args[-1])
-        self.dl.turn_off_caching()
+        self.query = daily_location(date="2016-01-01", method=args[-1])
+        self.query.turn_off_caching()
 
     def time_daily_location(self, *args):
 
-        _ = self.dl.store().result()
+        _ = self.query.store().result()
 
     def track_daily_location_cost(self, *args):
-        return self.dl.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class AggregateDailyLocation:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        [True, False],
-        ["last", "most-common"],
-    ]
+    params = flowdb_config_params() + [[True, False], ["last", "most-common"]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["is_cached", "daily_location_method"]
     timer = timeit.default_timer
     timeout = 1200
@@ -142,23 +143,20 @@ class AggregateDailyLocation:
         dl = daily_location(date="2016-01-01", method=args[-1])
         if args[-2]:
             dl.store().result()
-        self.dl = dl.aggregate()
-        self.dl.turn_off_caching()
+        self.query = dl.aggregate()
+        self.query.turn_off_caching()
 
     def time_aggregate_daily_location(self, *args):
 
-        _ = self.dl.store().result()
+        _ = self.query.store().result()
 
     def track_aggregate_daily_location_cost(self, *args):
-        return self.dl.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class ModalLocationWithCaching:
     timer = timeit.default_timer
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        [0, 3, 7],
-        ["last", "most-common"],
-    ]
+    params = flowdb_config_params() + [[0, 3, 7], ["last", "most-common"]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["n_cached", "daily_location_method"]
     timeout = 1200
 
@@ -179,19 +177,19 @@ class ModalLocationWithCaching:
         for d in stored_daily_locs:
             d.result()
         daily_locs = [daily_location(date=date, method=args[-1]) for date in dates]
-        self.ml = ModalLocation(*daily_locs)
-        self.ml.turn_off_caching()
+        self.query = ModalLocation(*daily_locs)
+        self.query.turn_off_caching()
 
     def time_modal_location(self, *args):
-        _ = self.ml.store().result()
+        _ = self.query.store().result()
 
     def track_modal_location_cost(self, *args):
-        return self.ml.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class AggregateModalLocation:
     timer = timeit.default_timer
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [[True, False]]
+    params = flowdb_config_params() + [[True, False]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["is_cached"]
     timeout = 1200
 
@@ -209,19 +207,19 @@ class AggregateModalLocation:
         ml = ModalLocation(*daily_locs)
         if args[-1]:
             ml.store().result()
-        self.ml = ml.aggregate()
-        self.ml.turn_off_caching()
+        self.query = ml.aggregate()
+        self.query.turn_off_caching()
 
     def time_aggregate_modal_location(self, *args):
-        _ = self.ml.store().result()
+        _ = self.query.store().result()
 
     def track_aggregate_modal_location_cost(self, *args):
-        return self.ml.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class FlowSuite:
     timer = timeit.default_timer
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [[0, 1, 2]]
+    params = flowdb_config_params() + [[0, 1, 2]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["n_cached"]
     timeout = 1200
 
@@ -240,19 +238,19 @@ class FlowSuite:
         stored_mls = [ml.store() for ml in mls[: args[-1]]]
         for ml in stored_mls:
             ml.result()
-        self.fl = Flows(*mls)
-        self.fl.turn_off_caching()
+        self.query = Flows(*mls)
+        self.query.turn_off_caching()
 
     def time_flow(self, *args):
-        _ = self.fl.store().result()
+        _ = self.query.store().result()
 
     def track_flow_cost(self, *args):
-        return self.fl.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class TotalLocationEventsSuite:
     timer = timeit.default_timer
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
+    params = flowdb_config_params() + [
         ["cell", "admin3"],
         ["day", "min"],
         ["out", "both"],
@@ -261,27 +259,24 @@ class TotalLocationEventsSuite:
     timeout = 1200
 
     def setup(self, *args):
-        self.tle = TotalLocationEvents(
+        self.query = TotalLocationEvents(
             "2016-01-01",
             "2016-01-07",
             level=args[-3],
             interval=args[-2],
             direction=args[-1],
         )
-        self.tle.turn_off_caching()
+        self.query.turn_off_caching()
 
     def time_total_location_events(self, *args):
-        _ = self.tle.store().result()
+        _ = self.query.store().result()
 
     def track_total_location_events_cost(self, *args):
-        return self.tle.explain(format="json")[0]["Plan"]["Total Cost"]
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class HartiganClusterSuite:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        [(4, 17), "all"],
-        [0.1, 10.0],
-    ]
+    params = flowdb_config_params() + [[(4, 17), "all"], [0.1, 10.0]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["hours", "radius"]
 
     def setup(self, *args):
@@ -298,10 +293,7 @@ class HartiganClusterSuite:
 
 
 class EventScoreSuite:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        ["versioned-cell", "admin3"],
-        [(4, 17), "all"],
-    ]
+    params = flowdb_config_params() + [["versioned-cell", "admin3"], [(4, 17), "all"]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "hours"]
 
     def setup(self, *args):
@@ -318,10 +310,7 @@ class EventScoreSuite:
 
 
 class MeaningfulLocationsSuite:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        ["day", "unknown"],
-        [True, False],
-    ]
+    params = flowdb_config_params() + [["day", "unknown"], [True, False]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["label", "caching"]
 
     def setup(self, *args):
@@ -361,10 +350,7 @@ class MeaningfulLocationsSuite:
 
 
 class MeaningfulLocationsAggregateSuite:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        ["admin1", "admin3"],
-        [True, False],
-    ]
+    params = flowdb_config_params() + [["admin1", "admin3"], [True, False]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
 
     def setup(self, *args):
@@ -406,10 +392,7 @@ class MeaningfulLocationsAggregateSuite:
 
 
 class MeaningfulLocationsODSuite:
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + [
-        ["admin1", "admin3"],
-        [True, False],
-    ]
+    params = flowdb_config_params() + [["admin1", "admin3"], [True, False]]
     param_names = FLOWDB_CONFIG_PARAM_NAMES + ["level", "caching"]
 
     def setup(self, *args):

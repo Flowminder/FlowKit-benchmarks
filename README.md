@@ -37,7 +37,8 @@ git commit -m "Add results for commit <xxx> (run on <machine_name>)"
 git push
 
 # Option 2: discard the latest results
-git clean -f results/
+git clean -fd results/
+git checkout -- results/
 ```
 
 _Note:_ the very first time you run the benchmarks on a new machine, the `run_benchmarks.sh` command will ask you some questions to gather informations about the machine. See ["Running benchmarks"](https://asv.readthedocs.io/en/stable/using.html#running-benchmarks) in the asv docs for details.
