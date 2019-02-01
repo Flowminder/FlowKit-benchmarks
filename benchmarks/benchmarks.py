@@ -421,7 +421,8 @@ class MeaningfulLocationsAggregateSuite:
             },
             label="unknown",
         )
-        if args[-1]:
+        do_caching = args[-1]
+        if do_caching:
             ml.store().result()
         self.query = MeaningfulLocationsAggregate(
             meaningful_locations=ml, level=args[-2]
