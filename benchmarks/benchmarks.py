@@ -491,7 +491,8 @@ class MeaningfulLocationsODSuite:
             },
             label="evening",
         )
-        if args[-1]:
+        do_caching = args[-1]
+        if do_caching:
             ml1.store().result()
             ml2.store().result()
         self.query = MeaningfulLocationsOD(
