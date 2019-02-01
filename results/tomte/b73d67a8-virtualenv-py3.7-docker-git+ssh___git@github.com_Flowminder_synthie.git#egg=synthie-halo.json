@@ -56,7 +56,7 @@
         "docker": "",
         "git+ssh://git@github.com/Flowminder/synthie.git#egg=synthie": "",
         "halo": "",
-        "machine": "tomte.geodata.org.uk",
+        "machine": "tomte",
         "os": "Linux 3.10.0-693.21.1.el7.x86_64",
         "python": "3.7",
         "ram": "131746656"
