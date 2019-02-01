@@ -357,7 +357,8 @@ class MeaningfulLocationsSuite:
             "hartigan", "2016-01-01", "2016-01-07", radius=1.0
         )
         es = EventScore(start="2016-01-01", stop="2016-01-07", level="versioned-site")
-        if args[-1]:
+        do_caching = args[-1]
+        if do_caching:
             hc.store().result()
             es.store().result()
         self.query = MeaningfulLocations(
