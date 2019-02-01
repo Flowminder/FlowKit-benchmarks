@@ -1,7 +1,7 @@
 {
     "arch": "x86_64",
     "cpu": "Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz",
-    "machine": "tomte.geodata.org.uk",
+    "machine": "tomte",
     "os": "Linux 3.10.0-693.21.1.el7.x86_64",
     "ram": "131746656",
     "version": 1
