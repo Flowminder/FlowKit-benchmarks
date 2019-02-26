@@ -8,20 +8,18 @@
         "halo": [],
         "git+ssh://git@github.com/Flowminder/synthie.git#egg=synthie": []
     },
-    "branches": [
-        "master"
-    ],
+    "branches": ["master"],
     "dvcs": "git",
     "environment_type": "virtualenv",
     "show_commit_url": "https://github.com/Flowminder/FlowKit/commit/",
-    "pythons": [
-        "3.7"
-    ],
+    "pythons": ["3.7"],
     "benchmark_dir": "benchmarks",
     "env_dir": "env",
     "results_dir": "results",
     "html_dir": "html",
     "benchmark_dbs_dir": "./benchmark_dbs",
-    "keep_containers_alive": true,
+    "keep_containers_alive": false,
+    "reuse_containers": true,
+    "keep_flowdb_volumes": false,
     "version": 1
 }
