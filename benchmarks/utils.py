@@ -84,6 +84,7 @@ def update_containers_to_remove_file(flowdb_container, redis_container):
     with open(
         benchmark_dbs_dir.parent / "containers_to_clean_up", "a+"
     ) as cleanup_file:
+        cleanup_file.seek(0)
         to_remove = set(l.rstrip() for l in cleanup_file.readlines())
         to_remove.add(redis_container.name)
         to_remove.add(flowdb_container.name)
@@ -94,6 +95,7 @@ def update_containers_to_remove_file(flowdb_container, redis_container):
 def update_volumes_to_remove_file(flowdb_config):
     benchmark_dbs_dir = get_benchmark_dbs_dir()
     with open(benchmark_dbs_dir.parent / "dirs_to_clean_up", "a+") as cleanup_file:
+        cleanup_file.seek(0)
         to_remove = set(l.rstrip() for l in cleanup_file.readlines())
         to_remove.add(str(benchmark_dbs_dir / flowdb_config.volume_name))
         to_remove.add(str(benchmark_dbs_dir / flowdb_config.base.volume_name))
