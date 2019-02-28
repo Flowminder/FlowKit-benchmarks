@@ -82,18 +82,20 @@ def get_env_var(name):
 def update_containers_to_remove_file(flowdb_container, redis_container):
     benchmark_dbs_dir = get_benchmark_dbs_dir()
     with open(
-        benchmark_dbs_dir.parent / "containers_to_clean_up", "w+"
+        benchmark_dbs_dir.parent / "containers_to_clean_up", "a+"
     ) as cleanup_file:
         to_remove = set(l.rstrip() for l in cleanup_file.readlines())
         to_remove.add(redis_container.name)
         to_remove.add(flowdb_container.name)
+        cleanup_file.truncate(0)
         cleanup_file.write("\n".join(to_remove))
 
 
 def update_volumes_to_remove_file(flowdb_config):
     benchmark_dbs_dir = get_benchmark_dbs_dir()
-    with open(benchmark_dbs_dir.parent / "dirs_to_clean_up", "w+") as cleanup_file:
+    with open(benchmark_dbs_dir.parent / "dirs_to_clean_up", "a+") as cleanup_file:
         to_remove = set(l.rstrip() for l in cleanup_file.readlines())
         to_remove.add(str(benchmark_dbs_dir / flowdb_config.volume_name))
         to_remove.add(str(benchmark_dbs_dir / flowdb_config.base.volume_name))
+        cleanup_file.truncate(0)
         cleanup_file.write("\n".join(to_remove))
