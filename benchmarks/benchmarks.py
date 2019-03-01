@@ -5,9 +5,6 @@
 import timeit
 import flowmachine
 import docker
-import os
-import json
-from pathlib import Path
 from flowmachine.features import (
     daily_location,
     ModalLocation,
@@ -19,7 +16,7 @@ from flowmachine.features import (
     MeaningfulLocationsAggregate,
     MeaningfulLocationsOD,
 )
-from .utils import get_env_var
+from .utils import *
 from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
 
@@ -48,41 +45,6 @@ def make_params(params_dict):
     return params, param_names
 
 
-def get_benchmark_dbs_dir():
-    conf_file_path = Path(os.getenv("ASV_CONF_DIR"))
-    with open(conf_file_path / "asv.conf.json") as fin:
-        config = json.load(fin)
-    return conf_file_path / config["benchmark_dbs_dir"]
-
-
-def keep_containers_alive():
-    conf_file_path = Path(os.getenv("ASV_CONF_DIR"))
-    with open(conf_file_path / "asv.conf.json") as fin:
-        config = json.load(fin)
-    return config["keep_containers_alive"]
-
-
-def get_redis(docker_client):
-    try:
-        redis_container = docker_client.containers.get("flowkit_benchmarks_redis")
-    except docker.errors.NotFound:
-        docker_client.images.pull("bitnami/redis", "latest")
-        redis_container = docker_client.containers.run(
-            "bitnami/redis",
-            detach=True,
-            auto_remove=True,
-            ports={"6379/tcp": None},
-            name="flowkit_benchmarks_redis",
-            environment={"REDIS_PASSWORD": "fm_redis"},
-        )
-    port_config = docker_client.api.inspect_container(redis_container.id)[
-        "NetworkSettings"
-    ]["Ports"]["6379/tcp"][0]
-    redis_container.port = port_config["HostPort"]
-    redis_container.host = port_config["HostIp"]
-    return redis_container
-
-
 def setup(*args):
     print(f"Running setup for {args}")
     docker_client = docker.from_env()
@@ -107,10 +69,17 @@ def setup(*args):
     print("Wiping any cache tables.")
     for q in flowmachine.core.Query.get_stored():
         q.invalidate_db_cache()
+    if reuse_containers() and keep_containers_alive():
+        pass
+    elif reuse_containers():
+        update_containers_to_remove_file(flowdb_container, redis_container)
+        if not keep_flowdb_volumes():
+            update_volumes_to_remove_file(flowdb_config)
 
 
 def teardown(*args):
     print(f"Running teardown for {args}")
+    benchmark_dbs_dir = get_benchmark_dbs_dir()
     try:
         flowmachine.core.Query.redis.flushdb()
         print(
@@ -125,13 +94,19 @@ def teardown(*args):
         flowmachine.core.Query.connection.engine.dispose()
         del flowmachine.core.Query.connection
     finally:
-        if keep_containers_alive():
+        if reuse_containers() and keep_containers_alive():
+            pass
+        elif reuse_containers():
             pass
         else:
             print(f"Stopping {flowmachine.redis_container.name}")
             flowmachine.redis_container.stop()
             print(f"Stopping {flowmachine.flowdb_container.name}")
             flowmachine.flowdb_container.stop()
+            if not keep_flowdb_volumes():
+                print(f"Removing {benchmark_dbs_dir/flowmachine.flowdb_container.name}")
+                shutil.rmtree(benchmark_dbs_dir / flowmachine.flowdb_config.volume_name)
+                update_volumes_to_remove_file(flowdb_config.base)
 
 
 class DailyLocation:
