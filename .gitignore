@@ -4,4 +4,5 @@ FlowKit/
 asv.conf.local.json
 benchmark_dbs/
 html/
+logs/
 .DS_Store
