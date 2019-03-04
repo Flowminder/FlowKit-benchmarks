@@ -1,7 +1,7 @@
 {
     "project": "FlowKit",
     "project_url": "https://github.com/Flowminder/FlowKit",
-    "repo": "git@github.com:Flowminder/FlowKit.git",
+    "repo": "https://github.com/Flowminder/FlowKit.git",
     "repo_subdir": "flowmachine",
     "matrix": {
         "docker": [],
