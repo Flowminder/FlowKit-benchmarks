@@ -1,0 +1,1598 @@
+{
+    "benchmark_version": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": "0",
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": "0",
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": "0",
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": "0",
+        "benchmarks.DailyLocation.time_daily_location": "0",
+        "benchmarks.DailyLocation.track_daily_location_cost": "0",
+        "benchmarks.EventScoreSuite.time_event_score": "0",
+        "benchmarks.EventScoreSuite.track_event_score_cost": "0",
+        "benchmarks.FlowSuite.time_flow": "0",
+        "benchmarks.FlowSuite.track_flow_cost": "0",
+        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": "0",
+        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": "0",
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": "0",
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": "0",
+        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": "0",
+        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": "0",
+        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": "0",
+        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": "0",
+        "benchmarks.ModalLocationWithCaching.time_modal_location": "0",
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": "0",
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": "0",
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": "0"
+    },
+    "commit_hash": "b8eeb053ca37017087d6938e13ac660fc7b22600",
+    "date": 1552767049000,
+    "ended_at": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1552867598275,
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1552867602368,
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1552867618168,
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1552867621144,
+        "benchmarks.DailyLocation.time_daily_location": 1552867631936,
+        "benchmarks.DailyLocation.track_daily_location_cost": 1552867634158,
+        "benchmarks.EventScoreSuite.time_event_score": 1552867654837,
+        "benchmarks.EventScoreSuite.track_event_score_cost": 1552867658834,
+        "benchmarks.FlowSuite.time_flow": 1552867684664,
+        "benchmarks.FlowSuite.track_flow_cost": 1552867689354,
+        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": 1552867710936,
+        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": 1552867714881,
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": 1552867739568,
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": 1552867744062,
+        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": 1552867770902,
+        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": 1552867775897,
+        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": 1552867798028,
+        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": 1552867802575,
+        "benchmarks.ModalLocationWithCaching.time_modal_location": 1552867859503,
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1552867869529,
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1552867912240,
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1552867920124
+    },
+    "env_name": "virtualenv-py3.7-_home_jamesharrison_synthie-docker-halo",
+    "params": {
+        "/home/jamesharrison/synthie": "",
+        "arch": "x86_64",
+        "cpu": "Intel(R) Xeon(R) CPU E5-2620 v4 @ 2.10GHz",
+        "docker": "",
+        "halo": "",
+        "machine": "tomte",
+        "os": "Linux 3.10.0-693.21.1.el7.x86_64",
+        "python": "3.7",
+        "ram": "131746656"
+    },
+    "profiles": {},
+    "python": "3.7",
+    "requirements": {
+        "/home/jamesharrison/synthie": "",
+        "docker": "",
+        "halo": ""
+    },
+    "results": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                0.020446556620299816,
+                0.020463786087930202,
+                0.024047802202403545,
+                0.026737847365438938
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.020007755607366562,
+                        0.022439271211624146
+                    ],
+                    "max": 0.022439271211624146,
+                    "mean": 0.02071723360568285,
+                    "min": 0.020007755607366562,
+                    "number": 2,
+                    "q_25": 0.020109885837882757,
+                    "q_75": 0.020845760125666857,
+                    "repeat": 10,
+                    "std": 0.0007805770276798459
+                },
+                {
+                    "ci_99": [
+                        0.017861660569906235,
+                        0.021726684644818306
+                    ],
+                    "max": 0.021726684644818306,
+                    "mean": 0.020237836614251138,
+                    "min": 0.017861660569906235,
+                    "number": 2,
+                    "q_25": 0.0197148066945374,
+                    "q_75": 0.021182155702263117,
+                    "repeat": 10,
+                    "std": 0.0011494689498928166
+                },
+                {
+                    "ci_99": [
+                        0.019955001771450043,
+                        0.02836926467716694
+                    ],
+                    "max": 0.02836926467716694,
+                    "mean": 0.024007431603968142,
+                    "min": 0.019955001771450043,
+                    "number": 2,
+                    "q_25": 0.02161511080339551,
+                    "q_75": 0.026141607202589512,
+                    "repeat": 10,
+                    "std": 0.0026906888574894784
+                },
+                {
+                    "ci_99": [
+                        0.02553493343293667,
+                        0.028205277398228645
+                    ],
+                    "max": 0.028205277398228645,
+                    "mean": 0.0269734600558877,
+                    "min": 0.02553493343293667,
+                    "number": 2,
+                    "q_25": 0.02651556534692645,
+                    "q_75": 0.027843762189149857,
+                    "repeat": 10,
+                    "std": 0.000908992264355103
+                }
+            ]
+        },
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                28.4,
+                28.32,
+                1439.2,
+                1474.49
+            ]
+        },
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                0.03505580313503742,
+                0.23670068010687828
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.03047413006424904,
+                        0.04373799264431
+                    ],
+                    "max": 0.04373799264431,
+                    "mean": 0.03616049028933048,
+                    "min": 0.03047413006424904,
+                    "number": 1,
+                    "q_25": 0.03255667444318533,
+                    "q_75": 0.0403217189013958,
+                    "repeat": 10,
+                    "std": 0.004545565843750877
+                },
+                {
+                    "ci_99": [
+                        0.21830055862665176,
+                        0.29160772264003754
+                    ],
+                    "max": 0.29160772264003754,
+                    "mean": 0.24713726714253426,
+                    "min": 0.21830055862665176,
+                    "number": 1,
+                    "q_25": 0.23485316056758165,
+                    "q_75": 0.257721577771008,
+                    "repeat": 10,
+                    "std": 0.023922804739411243
+                }
+            ]
+        },
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                28.33,
+                9603.54
+            ]
+        },
+        "benchmarks.DailyLocation.time_daily_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                0.02547268569469452,
+                0.025021038949489594
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.02319241128861904,
+                        0.02658770978450775
+                    ],
+                    "max": 0.02658770978450775,
+                    "mean": 0.02518139723688364,
+                    "min": 0.02319241128861904,
+                    "number": 2,
+                    "q_25": 0.02488451125100255,
+                    "q_75": 0.02572999708354473,
+                    "repeat": 10,
+                    "std": 0.00109278730996181
+                },
+                {
+                    "ci_99": [
+                        0.02291959896683693,
+                        0.02733406238257885
+                    ],
+                    "max": 0.02733406238257885,
+                    "mean": 0.024780388362705706,
+                    "min": 0.02291959896683693,
+                    "number": 2,
+                    "q_25": 0.02373082796111703,
+                    "q_75": 0.025380429811775684,
+                    "repeat": 10,
+                    "std": 0.0013140817531765978
+                }
+            ]
+        },
+        "benchmarks.DailyLocation.track_daily_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                1439.16,
+                1474.44
+            ]
+        },
+        "benchmarks.EventScoreSuite.time_event_score": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'versioned-cell'",
+                    "'admin3'"
+                ],
+                [
+                    "(4, 17)",
+                    "'all'"
+                ]
+            ],
+            "result": [
+                0.03549879603087902,
+                0.034855885431170464,
+                0.03875373303890228,
+                0.03911055997014046
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.03298627957701683,
+                        0.03780762851238251
+                    ],
+                    "max": 0.03780762851238251,
+                    "mean": 0.035354020446538924,
+                    "min": 0.03298627957701683,
+                    "number": 1,
+                    "q_25": 0.03437914606183767,
+                    "q_75": 0.03634258732199669,
+                    "repeat": 10,
+                    "std": 0.0015172821750700674
+                },
+                {
+                    "ci_99": [
+                        0.030857577919960022,
+                        0.039531465619802475
+                    ],
+                    "max": 0.039531465619802475,
+                    "mean": 0.034960392490029336,
+                    "min": 0.030857577919960022,
+                    "number": 1,
+                    "q_25": 0.03343389928340912,
+                    "q_75": 0.03627115394920111,
+                    "repeat": 10,
+                    "std": 0.002636862114130985
+                },
+                {
+                    "ci_99": [
+                        0.0378359891474247,
+                        0.04234497249126434
+                    ],
+                    "max": 0.04234497249126434,
+                    "mean": 0.03954486697912216,
+                    "min": 0.0378359891474247,
+                    "number": 1,
+                    "q_25": 0.038110281340777874,
+                    "q_75": 0.041092198342084885,
+                    "repeat": 10,
+                    "std": 0.0016418431710157532
+                },
+                {
+                    "ci_99": [
+                        0.037016112357378006,
+                        0.0416298545897007
+                    ],
+                    "max": 0.0416298545897007,
+                    "mean": 0.03893757946789265,
+                    "min": 0.037016112357378006,
+                    "number": 1,
+                    "q_25": 0.03803328238427639,
+                    "q_75": 0.039555142633616924,
+                    "repeat": 10,
+                    "std": 0.001330771529939496
+                }
+            ]
+        },
+        "benchmarks.EventScoreSuite.track_event_score_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'versioned-cell'",
+                    "'admin3'"
+                ],
+                [
+                    "(4, 17)",
+                    "'all'"
+                ]
+            ],
+            "result": [
+                5369.17,
+                9852.36,
+                3890.34,
+                4202.5
+            ]
+        },
+        "benchmarks.FlowSuite.time_flow": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "1",
+                    "2"
+                ]
+            ],
+            "result": [
+                0.266453605145216,
+                0.1428858544677496,
+                0.02544025518000126
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.23382551595568657,
+                        0.30387086793780327
+                    ],
+                    "max": 0.30387086793780327,
+                    "mean": 0.26739924363791945,
+                    "min": 0.23382551595568657,
+                    "number": 1,
+                    "q_25": 0.23855120968073606,
+                    "q_75": 0.2951738815754652,
+                    "repeat": 10,
+                    "std": 0.028096742155561856
+                },
+                {
+                    "ci_99": [
+                        0.12266802042722702,
+                        0.16103743016719818
+                    ],
+                    "max": 0.16103743016719818,
+                    "mean": 0.14267728440463542,
+                    "min": 0.12266802042722702,
+                    "number": 1,
+                    "q_25": 0.13773006480187178,
+                    "q_75": 0.14980457350611687,
+                    "repeat": 10,
+                    "std": 0.010262789281026908
+                },
+                {
+                    "ci_99": [
+                        0.02109687775373459,
+                        0.029454762116074562
+                    ],
+                    "max": 0.029454762116074562,
+                    "mean": 0.025333487428724766,
+                    "min": 0.02109687775373459,
+                    "number": 2,
+                    "q_25": 0.023553097620606422,
+                    "q_75": 0.02732465462759137,
+                    "repeat": 10,
+                    "std": 0.0027016215754673196
+                }
+            ]
+        },
+        "benchmarks.FlowSuite.track_flow_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "1",
+                    "2"
+                ]
+            ],
+            "result": [
+                9603.42,
+                5291.56,
+                138.08
+            ]
+        },
+        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "(4, 17)",
+                    "'all'"
+                ],
+                [
+                    "0.1",
+                    "10.0"
+                ]
+            ],
+            "result": [
+                0.04363686963915825,
+                0.04280396178364754,
+                0.0417828094214201,
+                0.04194663651287556
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.03631660342216492,
+                        0.04502802714705467
+                    ],
+                    "max": 0.04502802714705467,
+                    "mean": 0.04217185527086258,
+                    "min": 0.03631660342216492,
+                    "number": 1,
+                    "q_25": 0.03969644382596016,
+                    "q_75": 0.04424151871353388,
+                    "repeat": 10,
+                    "std": 0.003114014824047297
+                },
+                {
+                    "ci_99": [
+                        0.039430681616067886,
+                        0.04654848575592041
+                    ],
+                    "max": 0.04654848575592041,
+                    "mean": 0.04272289387881756,
+                    "min": 0.039430681616067886,
+                    "number": 1,
+                    "q_25": 0.041891942732036114,
+                    "q_75": 0.04325405973941088,
+                    "repeat": 10,
+                    "std": 0.0017506644929646217
+                },
+                {
+                    "ci_99": [
+                        0.03360003978013992,
+                        0.044636521488428116
+                    ],
+                    "max": 0.044636521488428116,
+                    "mean": 0.04073597900569439,
+                    "min": 0.03360003978013992,
+                    "number": 1,
+                    "q_25": 0.03970336075872183,
+                    "q_75": 0.04321212787181139,
+                    "repeat": 10,
+                    "std": 0.0034326716477614105
+                },
+                {
+                    "ci_99": [
+                        0.03682313859462738,
+                        0.04666644334793091
+                    ],
+                    "max": 0.04666644334793091,
+                    "mean": 0.04224272295832634,
+                    "min": 0.03682313859462738,
+                    "number": 1,
+                    "q_25": 0.04080163035541773,
+                    "q_75": 0.044309656135737896,
+                    "repeat": 10,
+                    "std": 0.0026439633352531933
+                }
+            ]
+        },
+        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "(4, 17)",
+                    "'all'"
+                ],
+                [
+                    "0.1",
+                    "10.0"
+                ]
+            ],
+            "result": [
+                7125.5,
+                7125.5,
+                17578.08,
+                17578.08
+            ]
+        },
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'admin1'",
+                    "'admin3'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                0.029498768970370293,
+                0.039574816823005676,
+                0.030909346416592598,
+                0.041977440007030964
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.022978652268648148,
+                        0.034589651972055435
+                    ],
+                    "max": 0.034589651972055435,
+                    "mean": 0.029192313179373743,
+                    "min": 0.022978652268648148,
+                    "number": 1,
+                    "q_25": 0.027016411535441875,
+                    "q_75": 0.0317896343767643,
+                    "repeat": 10,
+                    "std": 0.0038001965183797567
+                },
+                {
+                    "ci_99": [
+                        0.03699212148785591,
+                        0.04379894211888313
+                    ],
+                    "max": 0.04379894211888313,
+                    "mean": 0.03978722207248211,
+                    "min": 0.03699212148785591,
+                    "number": 2,
+                    "q_25": 0.03864023229107261,
+                    "q_75": 0.04093223437666893,
+                    "repeat": 10,
+                    "std": 0.0019075195005618726
+                },
+                {
+                    "ci_99": [
+                        0.02817700058221817,
+                        0.03485938161611557
+                    ],
+                    "max": 0.03485938161611557,
+                    "mean": 0.03124266378581524,
+                    "min": 0.02817700058221817,
+                    "number": 1,
+                    "q_25": 0.030000969767570496,
+                    "q_75": 0.03226837422698736,
+                    "repeat": 10,
+                    "std": 0.0019120236260685487
+                },
+                {
+                    "ci_99": [
+                        0.03268558159470558,
+                        0.04341341368854046
+                    ],
+                    "max": 0.04341341368854046,
+                    "mean": 0.040951105765998363,
+                    "min": 0.03268558159470558,
+                    "number": 2,
+                    "q_25": 0.040500805247575045,
+                    "q_75": 0.042567724362015724,
+                    "repeat": 10,
+                    "std": 0.0029569818743945156
+                }
+            ]
+        },
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'admin1'",
+                    "'admin3'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                1695.49,
+                985873.76,
+                94145.55,
+                7034735.36
+            ]
+        },
+        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'admin1'",
+                    "'admin3'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                0.04714123159646988,
+                0.11930345557630062,
+                0.04248066060245037,
+                0.11851195245981216
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.03950462117791176,
+                        0.05045491084456444
+                    ],
+                    "max": 0.05045491084456444,
+                    "mean": 0.045988448709249494,
+                    "min": 0.03950462117791176,
+                    "number": 1,
+                    "q_25": 0.044843364506959915,
+                    "q_75": 0.04850521497428417,
+                    "repeat": 10,
+                    "std": 0.00354214736438959
+                },
+                {
+                    "ci_99": [
+                        0.10647283494472504,
+                        0.13236651569604874
+                    ],
+                    "max": 0.13236651569604874,
+                    "mean": 0.11914045326411724,
+                    "min": 0.10647283494472504,
+                    "number": 1,
+                    "q_25": 0.11122963111847639,
+                    "q_75": 0.1269745845347643,
+                    "repeat": 10,
+                    "std": 0.008597892540547733
+                },
+                {
+                    "ci_99": [
+                        0.03388024494051933,
+                        0.04900364577770233
+                    ],
+                    "max": 0.04900364577770233,
+                    "mean": 0.04205503351986408,
+                    "min": 0.03388024494051933,
+                    "number": 1,
+                    "q_25": 0.037547288462519646,
+                    "q_75": 0.04660471063107252,
+                    "repeat": 10,
+                    "std": 0.005105355781715852
+                },
+                {
+                    "ci_99": [
+                        0.1011970229446888,
+                        0.13682546466588974
+                    ],
+                    "max": 0.13682546466588974,
+                    "mean": 0.11844033077359199,
+                    "min": 0.1011970229446888,
+                    "number": 1,
+                    "q_25": 0.11087609641253948,
+                    "q_75": 0.12455622106790543,
+                    "repeat": 10,
+                    "std": 0.010345570593961137
+                }
+            ]
+        },
+        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'admin1'",
+                    "'admin3'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                3521.58,
+                3784462.97,
+                188454.13,
+                15950856.17
+            ]
+        },
+        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'day'",
+                    "'unknown'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                0.04842209257185459,
+                0.036350046284496784,
+                0.028554370626807213,
+                0.03709228243678808
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.03625202551484108,
+                        0.051541365683078766
+                    ],
+                    "max": 0.051541365683078766,
+                    "mean": 0.04589523896574974,
+                    "min": 0.03625202551484108,
+                    "number": 1,
+                    "q_25": 0.042968953028321266,
+                    "q_75": 0.050081213004887104,
+                    "repeat": 10,
+                    "std": 0.005533256249322566
+                },
+                {
+                    "ci_99": [
+                        0.028744222596287727,
+                        0.04135790839791298
+                    ],
+                    "max": 0.04135790839791298,
+                    "mean": 0.035840758867561814,
+                    "min": 0.028744222596287727,
+                    "number": 2,
+                    "q_25": 0.03523621801286936,
+                    "q_75": 0.03706101095303893,
+                    "repeat": 10,
+                    "std": 0.003215502941612569
+                },
+                {
+                    "ci_99": [
+                        0.025554627180099487,
+                        0.030829790979623795
+                    ],
+                    "max": 0.030829790979623795,
+                    "mean": 0.028754180856049062,
+                    "min": 0.025554627180099487,
+                    "number": 2,
+                    "q_25": 0.028399197850376368,
+                    "q_75": 0.029437825549393892,
+                    "repeat": 10,
+                    "std": 0.0013794579360431223
+                },
+                {
+                    "ci_99": [
+                        0.029896076768636703,
+                        0.041595496237277985
+                    ],
+                    "max": 0.041595496237277985,
+                    "mean": 0.03653231523931026,
+                    "min": 0.029896076768636703,
+                    "number": 2,
+                    "q_25": 0.03535388130694628,
+                    "q_75": 0.03878427855670452,
+                    "repeat": 10,
+                    "std": 0.0035074643360180073
+                }
+            ]
+        },
+        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'day'",
+                    "'unknown'"
+                ],
+                [
+                    "True",
+                    "False"
+                ]
+            ],
+            "result": [
+                75452.77,
+                873479.99,
+                75452.77,
+                873479.99
+            ]
+        },
+        "benchmarks.ModalLocationWithCaching.time_modal_location": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "3",
+                    "7"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                0.2587054781615734,
+                0.27342749759554863,
+                0.18369661457836628,
+                0.19193754717707634,
+                0.12114305794239044,
+                0.12351624108850956
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.23674114421010017,
+                        0.2836589179933071
+                    ],
+                    "max": 0.2836589179933071,
+                    "mean": 0.26051630154252053,
+                    "min": 0.23674114421010017,
+                    "number": 1,
+                    "q_25": 0.24757714662700891,
+                    "q_75": 0.274990632198751,
+                    "repeat": 10,
+                    "std": 0.01555919078739072
+                },
+                {
+                    "ci_99": [
+                        0.24463725835084915,
+                        0.29180603846907616
+                    ],
+                    "max": 0.29180603846907616,
+                    "mean": 0.27188316099345683,
+                    "min": 0.24463725835084915,
+                    "number": 1,
+                    "q_25": 0.26717721577733755,
+                    "q_75": 0.2791015300899744,
+                    "repeat": 10,
+                    "std": 0.013545925476166962
+                },
+                {
+                    "ci_99": [
+                        0.17459869757294655,
+                        0.19597003981471062
+                    ],
+                    "max": 0.19597003981471062,
+                    "mean": 0.1839997038245201,
+                    "min": 0.17459869757294655,
+                    "number": 1,
+                    "q_25": 0.17921413201838732,
+                    "q_75": 0.18781454395502806,
+                    "repeat": 10,
+                    "std": 0.0060161696874818545
+                },
+                {
+                    "ci_99": [
+                        0.17373789846897125,
+                        0.20892958715558052
+                    ],
+                    "max": 0.20892958715558052,
+                    "mean": 0.1928441882133484,
+                    "min": 0.17373789846897125,
+                    "number": 1,
+                    "q_25": 0.18951805867254734,
+                    "q_75": 0.1981030683964491,
+                    "repeat": 10,
+                    "std": 0.00876809327647813
+                },
+                {
+                    "ci_99": [
+                        0.10286734253168106,
+                        0.13494448736310005
+                    ],
+                    "max": 0.13494448736310005,
+                    "mean": 0.11888034828007221,
+                    "min": 0.10286734253168106,
+                    "number": 1,
+                    "q_25": 0.11326001677662134,
+                    "q_75": 0.12254345882683992,
+                    "repeat": 10,
+                    "std": 0.009961960418444238
+                },
+                {
+                    "ci_99": [
+                        0.1158636175096035,
+                        0.13544156402349472
+                    ],
+                    "max": 0.13544156402349472,
+                    "mean": 0.12406395971775055,
+                    "min": 0.1158636175096035,
+                    "number": 1,
+                    "q_25": 0.11914078705012798,
+                    "q_75": 0.12816336564719677,
+                    "repeat": 10,
+                    "std": 0.005932625461702047
+                }
+            ]
+        },
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "0",
+                    "3",
+                    "7"
+                ],
+                [
+                    "'last'",
+                    "'most-common'"
+                ]
+            ],
+            "result": [
+                9603.51,
+                9850.48,
+                5428.97,
+                5570.1,
+                341.08,
+                341.08
+            ]
+        },
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'cell'",
+                    "'admin3'"
+                ],
+                [
+                    "'day'",
+                    "'min'"
+                ],
+                [
+                    "'out'",
+                    "'both'"
+                ]
+            ],
+            "result": [
+                0.03217150270938873,
+                0.030469583347439766,
+                0.032258469611406326,
+                0.0313749797642231,
+                0.043342169374227524,
+                0.04357234574854374,
+                0.0418749563395977,
+                0.0420181006193161
+            ],
+            "stats": [
+                {
+                    "ci_99": [
+                        0.02978852391242981,
+                        0.032512012869119644
+                    ],
+                    "max": 0.032512012869119644,
+                    "mean": 0.031776613742113116,
+                    "min": 0.02978852391242981,
+                    "number": 1,
+                    "q_25": 0.03130754362791777,
+                    "q_75": 0.03237136173993349,
+                    "repeat": 10,
+                    "std": 0.000817562364688613
+                },
+                {
+                    "ci_99": [
+                        0.028660714626312256,
+                        0.0348493754863739
+                    ],
+                    "max": 0.0348493754863739,
+                    "mean": 0.030657697841525076,
+                    "min": 0.028660714626312256,
+                    "number": 1,
+                    "q_25": 0.029218662530183792,
+                    "q_75": 0.03098255582153797,
+                    "repeat": 10,
+                    "std": 0.0018193601243945803
+                },
+                {
+                    "ci_99": [
+                        0.03005117177963257,
+                        0.037160929292440414
+                    ],
+                    "max": 0.037160929292440414,
+                    "mean": 0.03259939253330231,
+                    "min": 0.03005117177963257,
+                    "number": 1,
+                    "q_25": 0.031646947376430035,
+                    "q_75": 0.03294848091900349,
+                    "repeat": 10,
+                    "std": 0.0018096675867956306
+                },
+                {
+                    "ci_99": [
+                        0.023849792778491974,
+                        0.03308672457933426
+                    ],
+                    "max": 0.03308672457933426,
+                    "mean": 0.030421506986021994,
+                    "min": 0.023849792778491974,
+                    "number": 1,
+                    "q_25": 0.030156745575368404,
+                    "q_75": 0.03198135085403919,
+                    "repeat": 10,
+                    "std": 0.0026633266539857754
+                },
+                {
+                    "ci_99": [
+                        0.03604423999786377,
+                        0.046627722680568695
+                    ],
+                    "max": 0.046627722680568695,
+                    "mean": 0.04245954900979996,
+                    "min": 0.03604423999786377,
+                    "number": 1,
+                    "q_25": 0.0410230802372098,
+                    "q_75": 0.04530399199575186,
+                    "repeat": 10,
+                    "std": 0.0034107853536257788
+                },
+                {
+                    "ci_99": [
+                        0.040841758251190186,
+                        0.04574090987443924
+                    ],
+                    "max": 0.04574090987443924,
+                    "mean": 0.04346390888094902,
+                    "min": 0.040841758251190186,
+                    "number": 1,
+                    "q_25": 0.04223398678004742,
+                    "q_75": 0.04484349302947521,
+                    "repeat": 10,
+                    "std": 0.0016770271976279966
+                },
+                {
+                    "ci_99": [
+                        0.03483371436595917,
+                        0.044015299528837204
+                    ],
+                    "max": 0.044015299528837204,
+                    "mean": 0.04085981659591198,
+                    "min": 0.03483371436595917,
+                    "number": 1,
+                    "q_25": 0.04055366665124893,
+                    "q_75": 0.0428721159696579,
+                    "repeat": 10,
+                    "std": 0.0028626472673820525
+                },
+                {
+                    "ci_99": [
+                        0.03478015586733818,
+                        0.04384210333228111
+                    ],
+                    "max": 0.04384210333228111,
+                    "mean": 0.04135564751923084,
+                    "min": 0.03478015586733818,
+                    "number": 1,
+                    "q_25": 0.04112863354384899,
+                    "q_75": 0.04310658015310764,
+                    "repeat": 10,
+                    "std": 0.0025829315164708952
+                }
+            ]
+        },
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": {
+            "params": [
+                [
+                    "7"
+                ],
+                [
+                    "1000"
+                ],
+                [
+                    "400"
+                ],
+                [
+                    "10000"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "True"
+                ],
+                [
+                    "False"
+                ],
+                [
+                    "'cell'",
+                    "'admin3'"
+                ],
+                [
+                    "'day'",
+                    "'min'"
+                ],
+                [
+                    "'out'",
+                    "'both'"
+                ]
+            ],
+            "result": [
+                6658.07,
+                8953.74,
+                7399.72,
+                10437.01,
+                8162.85,
+                11518.71,
+                8910.48,
+                13013.94
+            ]
+        }
+    },
+    "started_at": {
+        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1552867576543,
+        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1552867598279,
+        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1552867602371,
+        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1552867618171,
+        "benchmarks.DailyLocation.time_daily_location": 1552867621145,
+        "benchmarks.DailyLocation.track_daily_location_cost": 1552867631938,
+        "benchmarks.EventScoreSuite.time_event_score": 1552867634160,
+        "benchmarks.EventScoreSuite.track_event_score_cost": 1552867654842,
+        "benchmarks.FlowSuite.time_flow": 1552867658836,
+        "benchmarks.FlowSuite.track_flow_cost": 1552867684670,
+        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": 1552867689356,
+        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": 1552867710941,
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": 1552867714883,
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": 1552867739574,
+        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": 1552867744064,
+        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": 1552867770907,
+        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": 1552867775899,
+        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": 1552867798033,
+        "benchmarks.ModalLocationWithCaching.time_modal_location": 1552867802577,
+        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1552867859510,
+        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1552867869532,
+        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1552867912254
+    },
+    "version": 1
+}
