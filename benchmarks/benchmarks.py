@@ -55,7 +55,7 @@ def setup(*args):
     flowmachine.connect(
         db_port=flowdb_container.port,
         db_host=flowdb_container.host,
-	db_pass="foo",
+        db_pass="foo",
         redis_port=redis_container.port,
         redis_host=redis_container.host,
         redis_password="fm_redis",

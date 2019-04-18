@@ -113,8 +113,8 @@ class FlowDBConfig:
         spinner.start()
         # In-container config
         environment = {
-            "FM_PASSWORD": "foo",
-            "API_PASSWORD": "foo",
+            "FLOWMACHINE_FLOWDB_PASSWORD": "foo",
+            "FLOWAPI_FLOWDB_PASSWORD": "foo",
             "POSTGRES_PASSWORD": "flowflow",
             "JIT": self.jit,
             "STATS_TARGET": self.stats_target,

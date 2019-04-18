@@ -6,3 +6,4 @@ benchmark_dbs/
 html/
 logs/
 .DS_Store
+.vscode
