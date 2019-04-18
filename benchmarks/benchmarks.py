@@ -15,7 +15,13 @@ from flowmachine.features import (
     MeaningfulLocations,
     MeaningfulLocationsAggregate,
     MeaningfulLocationsOD,
+    TotalNetworkObjects,
+    AggregateNetworkObjects,
+    LocationIntroversion,
+    UniqueSubscriberCounts,
 )
+from flowmachine.features.dfs import DFSTotalMetricAmount
+from flowmachine.features.utilities.spatial_aggregates import SpatialAggregate
 from .utils import *
 from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
@@ -142,7 +148,7 @@ class AggregateDailyLocation:
         dl = daily_location(date="2016-01-01", method=args[-1])
         if args[-2]:
             dl.store().result()
-        self.query = dl.aggregate()
+        self.query = SpatialAggregate(locations=dl)
         self.query.turn_off_caching()
 
     def time_aggregate_daily_location(self, *args):
@@ -208,7 +214,7 @@ class AggregateModalLocation:
         ml = ModalLocation(*daily_locs)
         if args[-1]:
             ml.store().result()
-        self.query = ml.aggregate()
+        self.query = SpatialAggregate(locations=ml)
         self.query.turn_off_caching()
 
     def time_aggregate_modal_location(self, *args):
@@ -481,3 +487,141 @@ class MeaningfulLocationsODSuite:
 
     def track_meaningful_locations_aggregate_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class TotalNetworkObjectsSuite:
+    params, param_names = make_params(
+        {
+            "total_by": ["minute", "day"],
+            "network_object": ["cell", "versioned-cell", "versioned-site"],
+            "level": ["admin0", "admin3"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = TotalNetworkObjects(
+            "2016-01-01",
+            "2016-01-07",
+            total_by=args[-3],
+            network_object=args[-2],
+            level=args[-1],
+        )
+        self.query.turn_off_caching()
+
+    def time_total_network_objects(self, *args):
+        _ = self.query.store().result()
+
+    def track_total_network_objects_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class AggregateNetworkObjectsSuite:
+    params, param_names = make_params(
+        {
+            "statistic": ["avg", "max", "min", "median", "mode", "stddev", "variance"],
+            "aggregate_by": ["hour", "month"],
+            "caching": [True, False],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        tno = TotalNetworkObjects(
+            "2016-01-01", "2016-01-07", total_by="minute", level="admin3"
+        )
+        do_caching = args[-1]
+        if do_caching:
+            tno.store().result()
+        self.query = AggregateNetworkObjects(
+            total_network_objects=tno, statistic=args[-3], aggregate_by=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_aggregate_modal_location(self, *args):
+        _ = self.query.store().result()
+
+    def track_aggregate_modal_location_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class DFSTotalMetricAmountSuite:
+    params, param_names = make_params(
+        {
+            "metric": ["amount", "discount", "fee", "commission"],
+            "aggregation_unit": ["admin0", "admin3"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = DFSTotalMetricAmount(
+            start_date="2016-01-01",
+            end_date="2016-01-07",
+            metric=args[-2],
+            aggregation_unit=args[-1],
+        )
+        self.query.turn_off_caching()
+
+    def time_dfs_total_metric_amount(self, *args):
+        _ = self.query.store().result()
+
+    def track_dfs_total_metric_amount_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class LocationIntroversionSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "direction": ["in", "both"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = LocationIntroversion(
+            "2016-01-01", "2016-01-07", level=args[-2], direction=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_location_introversion(self, *args):
+        _ = self.query.store().result()
+
+    def track_location_introversion_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class UniqueSubscriberCountsSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "hours": [(4, 17), "all"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = UniqueSubscriberCounts(
+            "2016-01-01", "2016-01-07", level=args[-2], hours=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_unique_subscriber_counts(self, *args):
+        _ = self.query.store().result()
+
+    def track_unique_subscriber_counts_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+# TODO: Add benchmarks for JoinedSpatialAggregate
