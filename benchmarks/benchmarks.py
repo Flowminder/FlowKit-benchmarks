@@ -128,11 +128,11 @@ class DailyLocation:
         self.query = daily_location(date="2016-01-01", method=args[-1])
         self.query.turn_off_caching()
 
-    def time_daily_location(self, *args):
+    def time_query(self, *args):
 
         _ = self.query.store().result()
 
-    def track_daily_location_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -151,11 +151,11 @@ class AggregateDailyLocation:
         self.query = SpatialAggregate(locations=dl)
         self.query.turn_off_caching()
 
-    def time_aggregate_daily_location(self, *args):
+    def time_query(self, *args):
 
         _ = self.query.store().result()
 
-    def track_aggregate_daily_location_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -187,10 +187,10 @@ class ModalLocationWithCaching:
         self.query = ModalLocation(*daily_locs)
         self.query.turn_off_caching()
 
-    def time_modal_location(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_modal_location_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -217,10 +217,10 @@ class AggregateModalLocation:
         self.query = SpatialAggregate(locations=ml)
         self.query.turn_off_caching()
 
-    def time_aggregate_modal_location(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_aggregate_modal_location_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -248,10 +248,10 @@ class FlowSuite:
         self.query = Flows(*mls)
         self.query.turn_off_caching()
 
-    def time_flow(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_flow_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -277,10 +277,10 @@ class TotalLocationEventsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_total_location_events(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_total_location_events_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -298,10 +298,10 @@ class HartiganClusterSuite:
         )
         self.query.turn_off_caching()
 
-    def time_hartigan_cluster(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_hartigan_cluster_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -319,10 +319,10 @@ class EventScoreSuite:
         )
         self.query.turn_off_caching()
 
-    def time_event_score(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_event_score_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -364,10 +364,10 @@ class MeaningfulLocationsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_meaningful_locations(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_meaningful_locations_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -411,10 +411,10 @@ class MeaningfulLocationsAggregateSuite:
         )
         self.query.turn_off_caching()
 
-    def time_meaningful_locations_aggregate(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_meaningful_locations_aggregate_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -482,10 +482,10 @@ class MeaningfulLocationsODSuite:
         )
         self.query.turn_off_caching()
 
-    def time_meaningful_locations_aggregate(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_meaningful_locations_aggregate_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -511,10 +511,10 @@ class TotalNetworkObjectsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_total_network_objects(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_total_network_objects_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -542,10 +542,10 @@ class AggregateNetworkObjectsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_aggregate_modal_location(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_aggregate_modal_location_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -569,10 +569,10 @@ class DFSTotalMetricAmountSuite:
         )
         self.query.turn_off_caching()
 
-    def time_dfs_total_metric_amount(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_dfs_total_metric_amount_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -593,10 +593,10 @@ class LocationIntroversionSuite:
         )
         self.query.turn_off_caching()
 
-    def time_location_introversion(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_location_introversion_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
@@ -617,10 +617,10 @@ class UniqueSubscriberCountsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_unique_subscriber_counts(self, *args):
+    def time_query(self, *args):
         _ = self.query.store().result()
 
-    def track_unique_subscriber_counts_cost(self, *args):
+    def track_cost(self, *args):
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 

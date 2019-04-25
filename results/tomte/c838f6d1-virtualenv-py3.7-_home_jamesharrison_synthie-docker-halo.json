@@ -1,73 +1,73 @@
 {
     "benchmark_version": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": "0",
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": "0",
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": "0",
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": "0",
-        "benchmarks.AggregateNetworkObjectsSuite.time_aggregate_modal_location": "0",
-        "benchmarks.AggregateNetworkObjectsSuite.track_aggregate_modal_location_cost": "0",
-        "benchmarks.DFSTotalMetricAmountSuite.time_dfs_total_metric_amount": "0",
-        "benchmarks.DFSTotalMetricAmountSuite.track_dfs_total_metric_amount_cost": "0",
-        "benchmarks.DailyLocation.time_daily_location": "0",
-        "benchmarks.DailyLocation.track_daily_location_cost": "0",
-        "benchmarks.EventScoreSuite.time_event_score": "0",
-        "benchmarks.EventScoreSuite.track_event_score_cost": "0",
-        "benchmarks.FlowSuite.time_flow": "0",
-        "benchmarks.FlowSuite.track_flow_cost": "0",
-        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": "0",
-        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": "0",
-        "benchmarks.LocationIntroversionSuite.time_location_introversion": "0",
-        "benchmarks.LocationIntroversionSuite.track_location_introversion_cost": "0",
-        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": "0",
-        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": "0",
-        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": "0",
-        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": "0",
-        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": "0",
-        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": "0",
-        "benchmarks.ModalLocationWithCaching.time_modal_location": "0",
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": "0",
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": "0",
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": "0",
-        "benchmarks.TotalNetworkObjectsSuite.time_total_network_objects": "0",
-        "benchmarks.TotalNetworkObjectsSuite.track_total_network_objects_cost": "0",
-        "benchmarks.UniqueSubscriberCountsSuite.time_unique_subscriber_counts": "0",
-        "benchmarks.UniqueSubscriberCountsSuite.track_unique_subscriber_counts_cost": "0"
+        "benchmarks.AggregateDailyLocation.time_query": "0",
+        "benchmarks.AggregateDailyLocation.track_cost": "0",
+        "benchmarks.AggregateModalLocation.time_query": "0",
+        "benchmarks.AggregateModalLocation.track_cost": "0",
+        "benchmarks.AggregateNetworkObjectsSuite.time_query": "0",
+        "benchmarks.AggregateNetworkObjectsSuite.track_cost": "0",
+        "benchmarks.DFSTotalMetricAmountSuite.time_query": "0",
+        "benchmarks.DFSTotalMetricAmountSuite.track_cost": "0",
+        "benchmarks.DailyLocation.time_query": "0",
+        "benchmarks.DailyLocation.track_cost": "0",
+        "benchmarks.EventScoreSuite.time_query": "0",
+        "benchmarks.EventScoreSuite.track_cost": "0",
+        "benchmarks.FlowSuite.time_query": "0",
+        "benchmarks.FlowSuite.track_cost": "0",
+        "benchmarks.HartiganClusterSuite.time_query": "0",
+        "benchmarks.HartiganClusterSuite.track_cost": "0",
+        "benchmarks.LocationIntroversionSuite.time_query": "0",
+        "benchmarks.LocationIntroversionSuite.track_cost": "0",
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_query": "0",
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_cost": "0",
+        "benchmarks.MeaningfulLocationsODSuite.time_query": "0",
+        "benchmarks.MeaningfulLocationsODSuite.track_cost": "0",
+        "benchmarks.MeaningfulLocationsSuite.time_query": "0",
+        "benchmarks.MeaningfulLocationsSuite.track_cost": "0",
+        "benchmarks.ModalLocationWithCaching.time_query": "0",
+        "benchmarks.ModalLocationWithCaching.track_cost": "0",
+        "benchmarks.TotalLocationEventsSuite.time_query": "0",
+        "benchmarks.TotalLocationEventsSuite.track_cost": "0",
+        "benchmarks.TotalNetworkObjectsSuite.time_query": "0",
+        "benchmarks.TotalNetworkObjectsSuite.track_cost": "0",
+        "benchmarks.UniqueSubscriberCountsSuite.time_query": "0",
+        "benchmarks.UniqueSubscriberCountsSuite.track_cost": "0"
     },
     "commit_hash": "c838f6d1ff27585a11a0766344c391487197ee66",
     "date": 1555694370000,
     "ended_at": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1555888272855,
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1555888277847,
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1555888298606,
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1555888301881,
-        "benchmarks.AggregateNetworkObjectsSuite.time_aggregate_modal_location": 1555888484007,
-        "benchmarks.AggregateNetworkObjectsSuite.track_aggregate_modal_location_cost": 1555888519289,
-        "benchmarks.DFSTotalMetricAmountSuite.time_dfs_total_metric_amount": 1555888564849,
-        "benchmarks.DFSTotalMetricAmountSuite.track_dfs_total_metric_amount_cost": 1555888574132,
-        "benchmarks.DailyLocation.time_daily_location": 1555888588028,
-        "benchmarks.DailyLocation.track_daily_location_cost": 1555888590701,
-        "benchmarks.EventScoreSuite.time_event_score": 1555888619491,
-        "benchmarks.EventScoreSuite.track_event_score_cost": 1555888624784,
-        "benchmarks.FlowSuite.time_flow": 1555888655369,
-        "benchmarks.FlowSuite.track_flow_cost": 1555888661306,
-        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": 1555888689745,
-        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": 1555888694939,
-        "benchmarks.LocationIntroversionSuite.time_location_introversion": 1555888751815,
-        "benchmarks.LocationIntroversionSuite.track_location_introversion_cost": 1555888761444,
-        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": 1555888792238,
-        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": 1555888798084,
-        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": 1555888834242,
-        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": 1555888840989,
-        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": 1555888873187,
-        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": 1555888878781,
-        "benchmarks.ModalLocationWithCaching.time_modal_location": 1555888947307,
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1555888959238,
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1555889015060,
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1555889025494,
-        "benchmarks.TotalNetworkObjectsSuite.time_total_network_objects": 1555889109045,
-        "benchmarks.TotalNetworkObjectsSuite.track_total_network_objects_cost": 1555889124771,
-        "benchmarks.UniqueSubscriberCountsSuite.time_unique_subscriber_counts": 1555889181948,
-        "benchmarks.UniqueSubscriberCountsSuite.track_unique_subscriber_counts_cost": 1555889192033
+        "benchmarks.AggregateDailyLocation.time_query": 1555888272855,
+        "benchmarks.AggregateDailyLocation.track_cost": 1555888277847,
+        "benchmarks.AggregateModalLocation.time_query": 1555888298606,
+        "benchmarks.AggregateModalLocation.track_cost": 1555888301881,
+        "benchmarks.AggregateNetworkObjectsSuite.time_query": 1555888484007,
+        "benchmarks.AggregateNetworkObjectsSuite.track_cost": 1555888519289,
+        "benchmarks.DFSTotalMetricAmountSuite.time_query": 1555888564849,
+        "benchmarks.DFSTotalMetricAmountSuite.track_cost": 1555888574132,
+        "benchmarks.DailyLocation.time_query": 1555888588028,
+        "benchmarks.DailyLocation.track_cost": 1555888590701,
+        "benchmarks.EventScoreSuite.time_query": 1555888619491,
+        "benchmarks.EventScoreSuite.track_cost": 1555888624784,
+        "benchmarks.FlowSuite.time_query": 1555888655369,
+        "benchmarks.FlowSuite.track_cost": 1555888661306,
+        "benchmarks.HartiganClusterSuite.time_query": 1555888689745,
+        "benchmarks.HartiganClusterSuite.track_cost": 1555888694939,
+        "benchmarks.LocationIntroversionSuite.time_query": 1555888751815,
+        "benchmarks.LocationIntroversionSuite.track_cost": 1555888761444,
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_query": 1555888792238,
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_cost": 1555888798084,
+        "benchmarks.MeaningfulLocationsODSuite.time_query": 1555888834242,
+        "benchmarks.MeaningfulLocationsODSuite.track_cost": 1555888840989,
+        "benchmarks.MeaningfulLocationsSuite.time_query": 1555888873187,
+        "benchmarks.MeaningfulLocationsSuite.track_cost": 1555888878781,
+        "benchmarks.ModalLocationWithCaching.time_query": 1555888947307,
+        "benchmarks.ModalLocationWithCaching.track_cost": 1555888959238,
+        "benchmarks.TotalLocationEventsSuite.time_query": 1555889015060,
+        "benchmarks.TotalLocationEventsSuite.track_cost": 1555889025494,
+        "benchmarks.TotalNetworkObjectsSuite.time_query": 1555889109045,
+        "benchmarks.TotalNetworkObjectsSuite.track_cost": 1555889124771,
+        "benchmarks.UniqueSubscriberCountsSuite.time_query": 1555889181948,
+        "benchmarks.UniqueSubscriberCountsSuite.track_cost": 1555889192033
     },
     "env_name": "virtualenv-py3.7-_home_jamesharrison_synthie-docker-halo",
     "params": {
@@ -89,7 +89,7 @@
         "halo": ""
     },
     "results": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": {
+        "benchmarks.AggregateDailyLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -186,7 +186,7 @@
                 }
             ]
         },
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": {
+        "benchmarks.AggregateDailyLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -225,7 +225,7 @@
                 1002.15
             ]
         },
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": {
+        "benchmarks.AggregateModalLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -288,7 +288,7 @@
                 }
             ]
         },
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": {
+        "benchmarks.AggregateModalLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -321,7 +321,7 @@
                 6769.5
             ]
         },
-        "benchmarks.AggregateNetworkObjectsSuite.time_aggregate_modal_location": {
+        "benchmarks.AggregateNetworkObjectsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -735,7 +735,7 @@
                 }
             ]
         },
-        "benchmarks.AggregateNetworkObjectsSuite.track_aggregate_modal_location_cost": {
+        "benchmarks.AggregateNetworkObjectsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -807,7 +807,7 @@
                 3344.28
             ]
         },
-        "benchmarks.DFSTotalMetricAmountSuite.time_dfs_total_metric_amount": {
+        "benchmarks.DFSTotalMetricAmountSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -966,7 +966,7 @@
                 }
             ]
         },
-        "benchmarks.DFSTotalMetricAmountSuite.track_dfs_total_metric_amount_cost": {
+        "benchmarks.DFSTotalMetricAmountSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1011,7 +1011,7 @@
                 499.54
             ]
         },
-        "benchmarks.DailyLocation.time_daily_location": {
+        "benchmarks.DailyLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -1074,7 +1074,7 @@
                 }
             ]
         },
-        "benchmarks.DailyLocation.track_daily_location_cost": {
+        "benchmarks.DailyLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -1107,7 +1107,7 @@
                 1002.1
             ]
         },
-        "benchmarks.EventScoreSuite.time_event_score": {
+        "benchmarks.EventScoreSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1204,7 +1204,7 @@
                 }
             ]
         },
-        "benchmarks.EventScoreSuite.track_event_score_cost": {
+        "benchmarks.EventScoreSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1243,7 +1243,7 @@
                 3749.17
             ]
         },
-        "benchmarks.FlowSuite.time_flow": {
+        "benchmarks.FlowSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1322,7 +1322,7 @@
                 }
             ]
         },
-        "benchmarks.FlowSuite.track_flow_cost": {
+        "benchmarks.FlowSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1357,7 +1357,7 @@
                 138.08
             ]
         },
-        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": {
+        "benchmarks.HartiganClusterSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1454,7 +1454,7 @@
                 }
             ]
         },
-        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": {
+        "benchmarks.HartiganClusterSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1493,7 +1493,7 @@
                 17579.23
             ]
         },
-        "benchmarks.LocationIntroversionSuite.time_location_introversion": {
+        "benchmarks.LocationIntroversionSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1652,7 +1652,7 @@
                 }
             ]
         },
-        "benchmarks.LocationIntroversionSuite.track_location_introversion_cost": {
+        "benchmarks.LocationIntroversionSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1697,7 +1697,7 @@
                 44.06
             ]
         },
-        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": {
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1794,7 +1794,7 @@
                 }
             ]
         },
-        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": {
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1833,7 +1833,7 @@
                 7034737.65
             ]
         },
-        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": {
+        "benchmarks.MeaningfulLocationsODSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -1930,7 +1930,7 @@
                 }
             ]
         },
-        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": {
+        "benchmarks.MeaningfulLocationsODSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -1969,7 +1969,7 @@
                 15950842.76
             ]
         },
-        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": {
+        "benchmarks.MeaningfulLocationsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -2066,7 +2066,7 @@
                 }
             ]
         },
-        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": {
+        "benchmarks.MeaningfulLocationsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -2105,7 +2105,7 @@
                 873482.29
             ]
         },
-        "benchmarks.ModalLocationWithCaching.time_modal_location": {
+        "benchmarks.ModalLocationWithCaching.time_query": {
             "params": [
                 [
                     "7"
@@ -2233,7 +2233,7 @@
                 }
             ]
         },
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": {
+        "benchmarks.ModalLocationWithCaching.track_cost": {
             "params": [
                 [
                     "7"
@@ -2275,7 +2275,7 @@
                 341.08
             ]
         },
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": {
+        "benchmarks.TotalLocationEventsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -2436,7 +2436,7 @@
                 }
             ]
         },
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": {
+        "benchmarks.TotalLocationEventsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -2483,7 +2483,7 @@
                 13006.11
             ]
         },
-        "benchmarks.TotalNetworkObjectsSuite.time_total_network_objects": {
+        "benchmarks.TotalNetworkObjectsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -2705,7 +2705,7 @@
                 }
             ]
         },
-        "benchmarks.TotalNetworkObjectsSuite.track_total_network_objects_cost": {
+        "benchmarks.TotalNetworkObjectsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -2757,7 +2757,7 @@
                 3449.86
             ]
         },
-        "benchmarks.UniqueSubscriberCountsSuite.time_unique_subscriber_counts": {
+        "benchmarks.UniqueSubscriberCountsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -2916,7 +2916,7 @@
                 }
             ]
         },
-        "benchmarks.UniqueSubscriberCountsSuite.track_unique_subscriber_counts_cost": {
+        "benchmarks.UniqueSubscriberCountsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -2963,38 +2963,38 @@
         }
     },
     "started_at": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1555888244963,
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1555888272863,
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1555888277849,
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1555888298611,
-        "benchmarks.AggregateNetworkObjectsSuite.time_aggregate_modal_location": 1555888301883,
-        "benchmarks.AggregateNetworkObjectsSuite.track_aggregate_modal_location_cost": 1555888484036,
-        "benchmarks.DFSTotalMetricAmountSuite.time_dfs_total_metric_amount": 1555888519301,
-        "benchmarks.DFSTotalMetricAmountSuite.track_dfs_total_metric_amount_cost": 1555888564858,
-        "benchmarks.DailyLocation.time_daily_location": 1555888574136,
-        "benchmarks.DailyLocation.track_daily_location_cost": 1555888588031,
-        "benchmarks.EventScoreSuite.time_event_score": 1555888590703,
-        "benchmarks.EventScoreSuite.track_event_score_cost": 1555888619497,
-        "benchmarks.FlowSuite.time_flow": 1555888624786,
-        "benchmarks.FlowSuite.track_flow_cost": 1555888655375,
-        "benchmarks.HartiganClusterSuite.time_hartigan_cluster": 1555888661309,
-        "benchmarks.HartiganClusterSuite.track_hartigan_cluster_cost": 1555888689750,
-        "benchmarks.LocationIntroversionSuite.time_location_introversion": 1555888694942,
-        "benchmarks.LocationIntroversionSuite.track_location_introversion_cost": 1555888751823,
-        "benchmarks.MeaningfulLocationsAggregateSuite.time_meaningful_locations_aggregate": 1555888761447,
-        "benchmarks.MeaningfulLocationsAggregateSuite.track_meaningful_locations_aggregate_cost": 1555888792244,
-        "benchmarks.MeaningfulLocationsODSuite.time_meaningful_locations_aggregate": 1555888798086,
-        "benchmarks.MeaningfulLocationsODSuite.track_meaningful_locations_aggregate_cost": 1555888834250,
-        "benchmarks.MeaningfulLocationsSuite.time_meaningful_locations": 1555888840992,
-        "benchmarks.MeaningfulLocationsSuite.track_meaningful_locations_cost": 1555888873193,
-        "benchmarks.ModalLocationWithCaching.time_modal_location": 1555888878783,
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1555888947323,
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1555888959243,
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1555889015070,
-        "benchmarks.TotalNetworkObjectsSuite.time_total_network_objects": 1555889025498,
-        "benchmarks.TotalNetworkObjectsSuite.track_total_network_objects_cost": 1555889109059,
-        "benchmarks.UniqueSubscriberCountsSuite.time_unique_subscriber_counts": 1555889124776,
-        "benchmarks.UniqueSubscriberCountsSuite.track_unique_subscriber_counts_cost": 1555889181958
+        "benchmarks.AggregateDailyLocation.time_query": 1555888244963,
+        "benchmarks.AggregateDailyLocation.track_cost": 1555888272863,
+        "benchmarks.AggregateModalLocation.time_query": 1555888277849,
+        "benchmarks.AggregateModalLocation.track_cost": 1555888298611,
+        "benchmarks.AggregateNetworkObjectsSuite.time_query": 1555888301883,
+        "benchmarks.AggregateNetworkObjectsSuite.track_cost": 1555888484036,
+        "benchmarks.DFSTotalMetricAmountSuite.time_query": 1555888519301,
+        "benchmarks.DFSTotalMetricAmountSuite.track_cost": 1555888564858,
+        "benchmarks.DailyLocation.time_query": 1555888574136,
+        "benchmarks.DailyLocation.track_cost": 1555888588031,
+        "benchmarks.EventScoreSuite.time_query": 1555888590703,
+        "benchmarks.EventScoreSuite.track_cost": 1555888619497,
+        "benchmarks.FlowSuite.time_query": 1555888624786,
+        "benchmarks.FlowSuite.track_cost": 1555888655375,
+        "benchmarks.HartiganClusterSuite.time_query": 1555888661309,
+        "benchmarks.HartiganClusterSuite.track_cost": 1555888689750,
+        "benchmarks.LocationIntroversionSuite.time_query": 1555888694942,
+        "benchmarks.LocationIntroversionSuite.track_cost": 1555888751823,
+        "benchmarks.MeaningfulLocationsAggregateSuite.time_query": 1555888761447,
+        "benchmarks.MeaningfulLocationsAggregateSuite.track_cost": 1555888792244,
+        "benchmarks.MeaningfulLocationsODSuite.time_query": 1555888798086,
+        "benchmarks.MeaningfulLocationsODSuite.track_cost": 1555888834250,
+        "benchmarks.MeaningfulLocationsSuite.time_query": 1555888840992,
+        "benchmarks.MeaningfulLocationsSuite.track_cost": 1555888873193,
+        "benchmarks.ModalLocationWithCaching.time_query": 1555888878783,
+        "benchmarks.ModalLocationWithCaching.track_cost": 1555888947323,
+        "benchmarks.TotalLocationEventsSuite.time_query": 1555888959243,
+        "benchmarks.TotalLocationEventsSuite.track_cost": 1555889015070,
+        "benchmarks.TotalNetworkObjectsSuite.time_query": 1555889025498,
+        "benchmarks.TotalNetworkObjectsSuite.track_cost": 1555889109059,
+        "benchmarks.UniqueSubscriberCountsSuite.time_query": 1555889124776,
+        "benchmarks.UniqueSubscriberCountsSuite.track_cost": 1555889181958
     },
     "version": 1
 }

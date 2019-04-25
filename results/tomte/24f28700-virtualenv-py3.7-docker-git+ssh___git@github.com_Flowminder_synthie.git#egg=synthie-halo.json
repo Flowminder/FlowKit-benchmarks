@@ -1,33 +1,33 @@
 {
     "benchmark_version": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": "0",
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": "0",
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": "0",
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": "0",
-        "benchmarks.DailyLocation.time_daily_location": "0",
-        "benchmarks.DailyLocation.track_daily_location_cost": "0",
-        "benchmarks.FlowSuite.time_flow": "0",
-        "benchmarks.FlowSuite.track_flow_cost": "0",
-        "benchmarks.ModalLocationWithCaching.time_modal_location": "0",
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": "0",
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": "0",
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": "0"
+        "benchmarks.AggregateDailyLocation.time_query": "0",
+        "benchmarks.AggregateDailyLocation.track_cost": "0",
+        "benchmarks.AggregateModalLocation.time_query": "0",
+        "benchmarks.AggregateModalLocation.track_cost": "0",
+        "benchmarks.DailyLocation.time_query": "0",
+        "benchmarks.DailyLocation.track_cost": "0",
+        "benchmarks.FlowSuite.time_query": "0",
+        "benchmarks.FlowSuite.track_cost": "0",
+        "benchmarks.ModalLocationWithCaching.time_query": "0",
+        "benchmarks.ModalLocationWithCaching.track_cost": "0",
+        "benchmarks.TotalLocationEventsSuite.time_query": "0",
+        "benchmarks.TotalLocationEventsSuite.track_cost": "0"
     },
     "commit_hash": "24f28700b3ae8afdb9c4b5490b41cbfaa337b8f4",
     "date": 1548339523000,
     "ended_at": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1548951918272,
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1548951920761,
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1548951946084,
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1548951949360,
-        "benchmarks.DailyLocation.time_daily_location": 1548951957547,
-        "benchmarks.DailyLocation.track_daily_location_cost": 1548951958368,
-        "benchmarks.FlowSuite.time_flow": 1548951993818,
-        "benchmarks.FlowSuite.track_flow_cost": 1548951998503,
-        "benchmarks.ModalLocationWithCaching.time_modal_location": 1548952071752,
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1548952079620,
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1548952123169,
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1548952125930
+        "benchmarks.AggregateDailyLocation.time_query": 1548951918272,
+        "benchmarks.AggregateDailyLocation.track_cost": 1548951920761,
+        "benchmarks.AggregateModalLocation.time_query": 1548951946084,
+        "benchmarks.AggregateModalLocation.track_cost": 1548951949360,
+        "benchmarks.DailyLocation.time_query": 1548951957547,
+        "benchmarks.DailyLocation.track_cost": 1548951958368,
+        "benchmarks.FlowSuite.time_query": 1548951993818,
+        "benchmarks.FlowSuite.track_cost": 1548951998503,
+        "benchmarks.ModalLocationWithCaching.time_query": 1548952071752,
+        "benchmarks.ModalLocationWithCaching.track_cost": 1548952079620,
+        "benchmarks.TotalLocationEventsSuite.time_query": 1548952123169,
+        "benchmarks.TotalLocationEventsSuite.track_cost": 1548952125930
     },
     "env_name": "virtualenv-py3.7-docker-git+ssh___git@github.com_Flowminder_synthie.git#egg=synthie-halo",
     "params": {
@@ -49,7 +49,7 @@
         "halo": ""
     },
     "results": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": {
+        "benchmarks.AggregateDailyLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -146,7 +146,7 @@
                 }
             ]
         },
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": {
+        "benchmarks.AggregateDailyLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -185,7 +185,7 @@
                 1474.49
             ]
         },
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": {
+        "benchmarks.AggregateModalLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -248,7 +248,7 @@
                 }
             ]
         },
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": {
+        "benchmarks.AggregateModalLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -281,7 +281,7 @@
                 9603.54
             ]
         },
-        "benchmarks.DailyLocation.time_daily_location": {
+        "benchmarks.DailyLocation.time_query": {
             "params": [
                 [
                     "7"
@@ -344,7 +344,7 @@
                 }
             ]
         },
-        "benchmarks.DailyLocation.track_daily_location_cost": {
+        "benchmarks.DailyLocation.track_cost": {
             "params": [
                 [
                     "7"
@@ -377,7 +377,7 @@
                 1474.44
             ]
         },
-        "benchmarks.FlowSuite.time_flow": {
+        "benchmarks.FlowSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -456,7 +456,7 @@
                 }
             ]
         },
-        "benchmarks.FlowSuite.track_flow_cost": {
+        "benchmarks.FlowSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -491,7 +491,7 @@
                 628.85
             ]
         },
-        "benchmarks.ModalLocationWithCaching.time_modal_location": {
+        "benchmarks.ModalLocationWithCaching.time_query": {
             "params": [
                 [
                     "7"
@@ -619,7 +619,7 @@
                 }
             ]
         },
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": {
+        "benchmarks.ModalLocationWithCaching.track_cost": {
             "params": [
                 [
                     "7"
@@ -661,7 +661,7 @@
                 341.08
             ]
         },
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": {
+        "benchmarks.TotalLocationEventsSuite.time_query": {
             "params": [
                 [
                     "7"
@@ -822,7 +822,7 @@
                 }
             ]
         },
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": {
+        "benchmarks.TotalLocationEventsSuite.track_cost": {
             "params": [
                 [
                     "7"
@@ -871,18 +871,18 @@
         }
     },
     "started_at": {
-        "benchmarks.AggregateDailyLocation.time_aggregate_daily_location": 1548951898802,
-        "benchmarks.AggregateDailyLocation.track_aggregate_daily_location_cost": 1548951918282,
-        "benchmarks.AggregateModalLocation.time_aggregate_modal_location": 1548951920765,
-        "benchmarks.AggregateModalLocation.track_aggregate_modal_location_cost": 1548951946089,
-        "benchmarks.DailyLocation.time_daily_location": 1548951949364,
-        "benchmarks.DailyLocation.track_daily_location_cost": 1548951957554,
-        "benchmarks.FlowSuite.time_flow": 1548951958372,
-        "benchmarks.FlowSuite.track_flow_cost": 1548951993823,
-        "benchmarks.ModalLocationWithCaching.time_modal_location": 1548951998506,
-        "benchmarks.ModalLocationWithCaching.track_modal_location_cost": 1548952071763,
-        "benchmarks.TotalLocationEventsSuite.time_total_location_events": 1548952079625,
-        "benchmarks.TotalLocationEventsSuite.track_total_location_events_cost": 1548952123176
+        "benchmarks.AggregateDailyLocation.time_query": 1548951898802,
+        "benchmarks.AggregateDailyLocation.track_cost": 1548951918282,
+        "benchmarks.AggregateModalLocation.time_query": 1548951920765,
+        "benchmarks.AggregateModalLocation.track_cost": 1548951946089,
+        "benchmarks.DailyLocation.time_query": 1548951949364,
+        "benchmarks.DailyLocation.track_cost": 1548951957554,
+        "benchmarks.FlowSuite.time_query": 1548951958372,
+        "benchmarks.FlowSuite.track_cost": 1548951993823,
+        "benchmarks.ModalLocationWithCaching.time_query": 1548951998506,
+        "benchmarks.ModalLocationWithCaching.track_cost": 1548952071763,
+        "benchmarks.TotalLocationEventsSuite.time_query": 1548952079625,
+        "benchmarks.TotalLocationEventsSuite.track_cost": 1548952123176
     },
     "version": 1
 }
