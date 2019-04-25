@@ -120,512 +120,512 @@ def teardown(*args):
                 update_volumes_to_remove_file(flowdb_config.base)
 
 
-# class DailyLocation:
-#     params, param_names = make_params(
-#         {"daily_location_method": ["last", "most-common"]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = daily_location(date="2016-01-01", method=args[-1])
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class AggregateDailyLocation:
-#     params, param_names = make_params(
-#         {"is_cached": [True, False], "daily_location_method": ["last", "most-common"]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         dl = daily_location(date="2016-01-01", method=args[-1])
-#         if args[-2]:
-#             dl.store().result()
-#         self.query = SpatialAggregate(locations=dl)
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class ModalLocationWithCaching:
-#     params, param_names = make_params(
-#         {"n_cached": [0, 3, 7], "daily_location_method": ["last", "most-common"]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         dates = [
-#             "2016-01-01",
-#             "2016-01-02",
-#             "2016-01-03",
-#             "2016-01-04",
-#             "2016-01-05",
-#             "2016-01-06",
-#             "2016-01-07",
-#         ]
-#         stored_daily_locs = [
-#             daily_location(date=date, method=args[-1]).store()
-#             for date in dates[: args[-2]]
-#         ]
-#         for d in stored_daily_locs:
-#             d.result()
-#         daily_locs = [daily_location(date=date, method=args[-1]) for date in dates]
-#         self.query = ModalLocation(*daily_locs)
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class AggregateModalLocation:
-#     params, param_names = make_params({"is_cached": [True, False]})
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         dates = [
-#             "2016-01-01",
-#             "2016-01-02",
-#             "2016-01-03",
-#             "2016-01-04",
-#             "2016-01-05",
-#             "2016-01-06",
-#             "2016-01-07",
-#         ]
-#         daily_locs = [daily_location(date=date) for date in dates]
-#         ml = ModalLocation(*daily_locs)
-#         if args[-1]:
-#             ml.store().result()
-#         self.query = SpatialAggregate(locations=ml)
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class FlowSuite:
-#     params, param_names = make_params({"n_cached": [0, 1, 2]})
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         dates = [
-#             "2016-01-01",
-#             "2016-01-02",
-#             "2016-01-03",
-#             "2016-01-04",
-#             "2016-01-05",
-#             "2016-01-06",
-#             "2016-01-07",
-#         ]
-#         daily_locs = [daily_location(date=date) for date in dates]
-#         mls = [ModalLocation(*daily_locs[:3]), ModalLocation(*daily_locs[3:])]
-#         stored_mls = [ml.store() for ml in mls[: args[-1]]]
-#         for ml in stored_mls:
-#             ml.result()
-#         self.query = Flows(*mls)
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class TotalLocationEventsSuite:
-#     params, param_names = make_params(
-#         {
-#             "level": ["cell", "admin3"],
-#             "interval": ["day", "min"],
-#             "direction": ["out", "both"],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = TotalLocationEvents(
-#             "2016-01-01",
-#             "2016-01-07",
-#             level=args[-3],
-#             interval=args[-2],
-#             direction=args[-1],
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class HartiganClusterSuite:
-#     params, param_names = make_params(
-#         {"hours": [(4, 17), "all"], "radius": [0.1, 10.0]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = subscriber_location_cluster(
-#             "hartigan", "2016-01-01", "2016-01-07", hours=args[-2], radius=args[-1]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class EventScoreSuite:
-#     params, param_names = make_params(
-#         {"level": ["versioned-cell", "admin3"], "hours": [(4, 17), "all"]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = EventScore(
-#             start="2016-01-01", stop="2016-01-07", level=args[-2], hours=args[-1]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class MeaningfulLocationsSuite:
-#     params, param_names = make_params(
-#         {"label": ["day", "unknown"], "caching": [True, False]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         hc = subscriber_location_cluster(
-#             "hartigan", "2016-01-01", "2016-01-07", radius=1.0
-#         )
-#         es = EventScore(start="2016-01-01", stop="2016-01-07", level="versioned-site")
-#         do_caching = args[-1]
-#         if do_caching:
-#             hc.store().result()
-#             es.store().result()
-#         self.query = MeaningfulLocations(
-#             clusters=hc,
-#             scores=es,
-#             labels={
-#                 "evening": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
-#                     ],
-#                 },
-#                 "day": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
-#                     ],
-#                 },
-#             },
-#             label=args[-2],
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class MeaningfulLocationsAggregateSuite:
-#     params, param_names = make_params(
-#         {"level": ["admin1", "admin3"], "caching": [True, False]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         ml = MeaningfulLocations(
-#             clusters=subscriber_location_cluster(
-#                 "hartigan", "2016-01-01", "2016-01-07", radius=1.0
-#             ),
-#             scores=EventScore(
-#                 start="2016-01-01", stop="2016-01-07", level="versioned-site"
-#             ),
-#             labels={
-#                 "evening": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
-#                     ],
-#                 },
-#                 "day": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
-#                     ],
-#                 },
-#             },
-#             label="unknown",
-#         )
-#         do_caching = args[-1]
-#         if do_caching:
-#             ml.store().result()
-#         self.query = MeaningfulLocationsAggregate(
-#             meaningful_locations=ml, level=args[-2]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class MeaningfulLocationsODSuite:
-#     params, param_names = make_params(
-#         {"level": ["admin1", "admin3"], "caching": [True, False]}
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         ml1 = MeaningfulLocations(
-#             clusters=subscriber_location_cluster(
-#                 "hartigan", "2016-01-01", "2016-01-04", radius=1.0
-#             ),
-#             scores=EventScore(
-#                 start="2016-01-01", stop="2016-01-04", level="versioned-site"
-#             ),
-#             labels={
-#                 "evening": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
-#                     ],
-#                 },
-#                 "day": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
-#                     ],
-#                 },
-#             },
-#             label="day",
-#         )
-#         ml2 = MeaningfulLocations(
-#             clusters=subscriber_location_cluster(
-#                 "hartigan", "2016-01-05", "2016-01-07", radius=1.0
-#             ),
-#             scores=EventScore(
-#                 start="2016-01-05", stop="2016-01-07", level="versioned-site"
-#             ),
-#             labels={
-#                 "evening": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
-#                     ],
-#                 },
-#                 "day": {
-#                     "type": "Polygon",
-#                     "coordinates": [
-#                         [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
-#                     ],
-#                 },
-#             },
-#             label="evening",
-#         )
-#         do_caching = args[-1]
-#         if do_caching:
-#             ml1.store().result()
-#             ml2.store().result()
-#         self.query = MeaningfulLocationsOD(
-#             meaningful_locations_a=ml1, meaningful_locations_b=ml2, level=args[-2]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class TotalNetworkObjectsSuite:
-#     params, param_names = make_params(
-#         {
-#             "total_by": ["minute", "day"],
-#             "network_object": ["cell", "versioned-cell", "versioned-site"],
-#             "level": ["admin0", "admin3"],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = TotalNetworkObjects(
-#             "2016-01-01",
-#             "2016-01-07",
-#             total_by=args[-3],
-#             network_object=args[-2],
-#             level=args[-1],
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class AggregateNetworkObjectsSuite:
-#     params, param_names = make_params(
-#         {
-#             "statistic": ["avg", "max", "min", "median", "mode", "stddev", "variance"],
-#             "aggregate_by": ["hour", "month"],
-#             "caching": [True, False],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         tno = TotalNetworkObjects(
-#             "2016-01-01", "2016-01-07", total_by="minute", level="admin3"
-#         )
-#         do_caching = args[-1]
-#         if do_caching:
-#             tno.store().result()
-#         self.query = AggregateNetworkObjects(
-#             total_network_objects=tno, statistic=args[-3], aggregate_by=args[-2]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class DFSTotalMetricAmountSuite:
-#     params, param_names = make_params(
-#         {
-#             "metric": ["amount", "discount", "fee", "commission"],
-#             "aggregation_unit": ["admin0", "admin3"],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = DFSTotalMetricAmount(
-#             start_date="2016-01-01",
-#             end_date="2016-01-07",
-#             metric=args[-2],
-#             aggregation_unit=args[-1],
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class LocationIntroversionSuite:
-#     params, param_names = make_params(
-#         {
-#             "level": ["cell", "versioned-cell", "admin3", "admin0"],
-#             "direction": ["in", "both"],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = LocationIntroversion(
-#             "2016-01-01", "2016-01-07", level=args[-2], direction=args[-1]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-# class UniqueSubscriberCountsSuite:
-#     params, param_names = make_params(
-#         {
-#             "level": ["cell", "versioned-cell", "admin3", "admin0"],
-#             "hours": [(4, 17), "all"],
-#         }
-#     )
-#     timer = timeit.default_timer
-#     timeout = 1200
-#     version = 0
-
-#     def setup(self, *args):
-#         self.query = UniqueSubscriberCounts(
-#             "2016-01-01", "2016-01-07", level=args[-2], hours=args[-1]
-#         )
-#         self.query.turn_off_caching()
-
-#     def time_query(self, *args):
-#         _ = self.query.store().result()
-
-#     def track_cost(self, *args):
-#         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+class DailyLocation:
+    params, param_names = make_params(
+        {"daily_location_method": ["last", "most-common"]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = daily_location(date="2016-01-01", method=args[-1])
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class AggregateDailyLocation:
+    params, param_names = make_params(
+        {"is_cached": [True, False], "daily_location_method": ["last", "most-common"]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        dl = daily_location(date="2016-01-01", method=args[-1])
+        if args[-2]:
+            dl.store().result()
+        self.query = SpatialAggregate(locations=dl)
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class ModalLocationWithCaching:
+    params, param_names = make_params(
+        {"n_cached": [0, 3, 7], "daily_location_method": ["last", "most-common"]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        dates = [
+            "2016-01-01",
+            "2016-01-02",
+            "2016-01-03",
+            "2016-01-04",
+            "2016-01-05",
+            "2016-01-06",
+            "2016-01-07",
+        ]
+        stored_daily_locs = [
+            daily_location(date=date, method=args[-1]).store()
+            for date in dates[: args[-2]]
+        ]
+        for d in stored_daily_locs:
+            d.result()
+        daily_locs = [daily_location(date=date, method=args[-1]) for date in dates]
+        self.query = ModalLocation(*daily_locs)
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class AggregateModalLocation:
+    params, param_names = make_params({"is_cached": [True, False]})
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        dates = [
+            "2016-01-01",
+            "2016-01-02",
+            "2016-01-03",
+            "2016-01-04",
+            "2016-01-05",
+            "2016-01-06",
+            "2016-01-07",
+        ]
+        daily_locs = [daily_location(date=date) for date in dates]
+        ml = ModalLocation(*daily_locs)
+        if args[-1]:
+            ml.store().result()
+        self.query = SpatialAggregate(locations=ml)
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class FlowSuite:
+    params, param_names = make_params({"n_cached": [0, 1, 2]})
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        dates = [
+            "2016-01-01",
+            "2016-01-02",
+            "2016-01-03",
+            "2016-01-04",
+            "2016-01-05",
+            "2016-01-06",
+            "2016-01-07",
+        ]
+        daily_locs = [daily_location(date=date) for date in dates]
+        mls = [ModalLocation(*daily_locs[:3]), ModalLocation(*daily_locs[3:])]
+        stored_mls = [ml.store() for ml in mls[: args[-1]]]
+        for ml in stored_mls:
+            ml.result()
+        self.query = Flows(*mls)
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class TotalLocationEventsSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "admin3"],
+            "interval": ["day", "min"],
+            "direction": ["out", "both"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = TotalLocationEvents(
+            "2016-01-01",
+            "2016-01-07",
+            level=args[-3],
+            interval=args[-2],
+            direction=args[-1],
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class HartiganClusterSuite:
+    params, param_names = make_params(
+        {"hours": [(4, 17), "all"], "radius": [0.1, 10.0]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = subscriber_location_cluster(
+            "hartigan", "2016-01-01", "2016-01-07", hours=args[-2], radius=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class EventScoreSuite:
+    params, param_names = make_params(
+        {"level": ["versioned-cell", "admin3"], "hours": [(4, 17), "all"]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = EventScore(
+            start="2016-01-01", stop="2016-01-07", level=args[-2], hours=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsSuite:
+    params, param_names = make_params(
+        {"label": ["day", "unknown"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        hc = subscriber_location_cluster(
+            "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+        )
+        es = EventScore(start="2016-01-01", stop="2016-01-07", level="versioned-site")
+        do_caching = args[-1]
+        if do_caching:
+            hc.store().result()
+            es.store().result()
+        self.query = MeaningfulLocations(
+            clusters=hc,
+            scores=es,
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label=args[-2],
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsAggregateSuite:
+    params, param_names = make_params(
+        {"level": ["admin1", "admin3"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        ml = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-01", stop="2016-01-07", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="unknown",
+        )
+        do_caching = args[-1]
+        if do_caching:
+            ml.store().result()
+        self.query = MeaningfulLocationsAggregate(
+            meaningful_locations=ml, level=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class MeaningfulLocationsODSuite:
+    params, param_names = make_params(
+        {"level": ["admin1", "admin3"], "caching": [True, False]}
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        ml1 = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-01", "2016-01-04", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-01", stop="2016-01-04", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="day",
+        )
+        ml2 = MeaningfulLocations(
+            clusters=subscriber_location_cluster(
+                "hartigan", "2016-01-05", "2016-01-07", radius=1.0
+            ),
+            scores=EventScore(
+                start="2016-01-05", stop="2016-01-07", level="versioned-site"
+            ),
+            labels={
+                "evening": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[1e-06, -0.5], [1e-06, -1.1], [1.1, -1.1], [1.1, -0.5]]
+                    ],
+                },
+                "day": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [[-1.1, -0.5], [-1.1, 0.5], [-1e-06, 0.5], [0, -0.5]]
+                    ],
+                },
+            },
+            label="evening",
+        )
+        do_caching = args[-1]
+        if do_caching:
+            ml1.store().result()
+            ml2.store().result()
+        self.query = MeaningfulLocationsOD(
+            meaningful_locations_a=ml1, meaningful_locations_b=ml2, level=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class TotalNetworkObjectsSuite:
+    params, param_names = make_params(
+        {
+            "total_by": ["minute", "day"],
+            "network_object": ["cell", "versioned-cell", "versioned-site"],
+            "level": ["admin0", "admin3"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = TotalNetworkObjects(
+            "2016-01-01",
+            "2016-01-07",
+            total_by=args[-3],
+            network_object=args[-2],
+            level=args[-1],
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class AggregateNetworkObjectsSuite:
+    params, param_names = make_params(
+        {
+            "statistic": ["avg", "max", "min", "median", "mode", "stddev", "variance"],
+            "aggregate_by": ["hour", "month"],
+            "caching": [True, False],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        tno = TotalNetworkObjects(
+            "2016-01-01", "2016-01-07", total_by="minute", level="admin3"
+        )
+        do_caching = args[-1]
+        if do_caching:
+            tno.store().result()
+        self.query = AggregateNetworkObjects(
+            total_network_objects=tno, statistic=args[-3], aggregate_by=args[-2]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class DFSTotalMetricAmountSuite:
+    params, param_names = make_params(
+        {
+            "metric": ["amount", "discount", "fee", "commission"],
+            "aggregation_unit": ["admin0", "admin3"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = DFSTotalMetricAmount(
+            start_date="2016-01-01",
+            end_date="2016-01-07",
+            metric=args[-2],
+            aggregation_unit=args[-1],
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class LocationIntroversionSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "direction": ["in", "both"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = LocationIntroversion(
+            "2016-01-01", "2016-01-07", level=args[-2], direction=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
+
+
+class UniqueSubscriberCountsSuite:
+    params, param_names = make_params(
+        {
+            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "hours": [(4, 17), "all"],
+        }
+    )
+    timer = timeit.default_timer
+    timeout = 1200
+    version = 0
+
+    def setup(self, *args):
+        self.query = UniqueSubscriberCounts(
+            "2016-01-01", "2016-01-07", level=args[-2], hours=args[-1]
+        )
+        self.query.turn_off_caching()
+
+    def time_query(self, *args):
+        _ = self.query.store().result()
+
+    def track_cost(self, *args):
+        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
 class RadiusOfGyrationSuite:
