@@ -63,9 +63,9 @@ def setup(*args):
     flowdb_container = flowdb_config.create_db(docker_client)
     redis_container = get_redis(docker_client)
     flowmachine.connect(
-        db_port=flowdb_container.port,
-        db_host=flowdb_container.host,
-        db_pass="foo",
+        flowdb_port=flowdb_container.port,
+        flowdb_host=flowdb_container.host,
+        flowdb_password="foo",
         redis_port=redis_container.port,
         redis_host=redis_container.host,
         redis_password="fm_redis",
