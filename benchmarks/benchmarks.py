@@ -73,13 +73,10 @@ def setup(*args):
     flowmachine.redis_container = redis_container
     flowmachine.flowdb_container = flowdb_container
     flowmachine.flowdb_config = flowdb_config
-    print(
-        f"Connected. Flushing redis '{redis_container.name}' on {redis_container.host}:{redis_container.port}."
+    print(f"Connected. Resetting cache.")
+    flowmachine.core.cache.reset_cache(
+        flowmachine.core.Query.connection, flowmachine.core.Query.redis
     )
-    flowmachine.core.Query.redis.flushdb()
-    print("Wiping any cache tables.")
-    for q in flowmachine.core.Query.get_stored():
-        q.invalidate_db_cache()
     if reuse_containers() and keep_containers_alive():
         pass
     elif reuse_containers():
@@ -92,7 +89,6 @@ def teardown(*args):
     print(f"Running teardown for {args}")
     benchmark_dbs_dir = get_benchmark_dbs_dir()
     try:
-        flowmachine.core.Query.redis.flushdb()
         print(
             f"Killing any queries still running on {flowmachine.flowdb_container.name}"
         )
@@ -100,8 +96,10 @@ def teardown(*args):
             flowmachine.core.Query.connection.engine.execute(
                 "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE application_name='flowmachine';"
             )
-        for q in flowmachine.core.Query.get_stored():
-            q.invalidate_db_cache()
+        print(f"Resetting cache.")
+        flowmachine.core.cache.reset_cache(
+            flowmachine.core.Query.connection, flowmachine.core.Query.redis
+        )
         flowmachine.core.Query.connection.engine.dispose()
         del flowmachine.core.Query.connection
     finally:
