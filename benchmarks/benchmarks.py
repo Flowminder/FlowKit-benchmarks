@@ -5,6 +5,7 @@
 import timeit
 import flowmachine
 import docker
+from flowmachine.core import make_spatial_unit
 from flowmachine.features import (
     daily_location,
     ModalLocation,
@@ -260,7 +261,10 @@ class FlowSuite:
 class TotalLocationEventsSuite:
     params, param_names = make_params(
         {
-            "level": ["cell", "admin3"],
+            "spatial_unit": [
+                {"spatial_unit_type": "cell"},
+                {"spatial_unit_type": "admin", "level": 3},
+            ],
             "interval": ["day", "min"],
             "direction": ["out", "both"],
         }
@@ -270,10 +274,12 @@ class TotalLocationEventsSuite:
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-3]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         self.query = TotalLocationEvents(
             "2016-01-01",
             "2016-01-07",
-            level=args[-3],
+            spatial_unit=spatial_unit,
             interval=args[-2],
             direction=args[-1],
         )
@@ -309,15 +315,26 @@ class HartiganClusterSuite:
 
 class EventScoreSuite:
     params, param_names = make_params(
-        {"level": ["versioned-cell", "admin3"], "hours": [(4, 17), "all"]}
+        {
+            "spatial_unit": [
+                {"spatial_unit_type": "versioned-cell"},
+                {"spatial_unit_type": "admin", "level": 3},
+            ],
+            "hours": [(4, 17), "all"],
+        }
     )
     timer = timeit.default_timer
     timeout = 1200
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-2]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         self.query = EventScore(
-            start="2016-01-01", stop="2016-01-07", level=args[-2], hours=args[-1]
+            start="2016-01-01",
+            stop="2016-01-07",
+            spatial_unit=spatial_unit,
+            hours=args[-1],
         )
         self.query.turn_off_caching()
 
@@ -340,7 +357,11 @@ class MeaningfulLocationsSuite:
         hc = subscriber_location_cluster(
             "hartigan", "2016-01-01", "2016-01-07", radius=1.0
         )
-        es = EventScore(start="2016-01-01", stop="2016-01-07", level="versioned-site")
+        es = EventScore(
+            start="2016-01-01",
+            stop="2016-01-07",
+            spatial_unit=make_spatial_unit("versioned-site"),
+        )
         do_caching = args[-1]
         if do_caching:
             hc.store().result()
@@ -375,19 +396,29 @@ class MeaningfulLocationsSuite:
 
 class MeaningfulLocationsAggregateSuite:
     params, param_names = make_params(
-        {"level": ["admin1", "admin3"], "caching": [True, False]}
+        {
+            "spatial_unit": [
+                {"spatial_unit_type": "admin", "level": 1},
+                {"spatial_unit_type": "admin", "level": 3},
+            ],
+            "caching": [True, False],
+        }
     )
     timer = timeit.default_timer
     timeout = 1200
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-2]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         ml = MeaningfulLocations(
             clusters=subscriber_location_cluster(
                 "hartigan", "2016-01-01", "2016-01-07", radius=1.0
             ),
             scores=EventScore(
-                start="2016-01-01", stop="2016-01-07", level="versioned-site"
+                start="2016-01-01",
+                stop="2016-01-07",
+                spatial_unit=make_spatial_unit("versioned-site"),
             ),
             labels={
                 "evening": {
@@ -409,7 +440,7 @@ class MeaningfulLocationsAggregateSuite:
         if do_caching:
             ml.store().result()
         self.query = MeaningfulLocationsAggregate(
-            meaningful_locations=ml, level=args[-2]
+            meaningful_locations=ml, spatial_unit=spatial_unit
         )
         self.query.turn_off_caching()
 
@@ -422,19 +453,29 @@ class MeaningfulLocationsAggregateSuite:
 
 class MeaningfulLocationsODSuite:
     params, param_names = make_params(
-        {"level": ["admin1", "admin3"], "caching": [True, False]}
+        {
+            "spatial_unit": [
+                {"spatial_unit_type": "admin", "level": 1},
+                {"spatial_unit_type": "admin", "level": 3},
+            ],
+            "caching": [True, False],
+        }
     )
     timer = timeit.default_timer
     timeout = 1200
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-2]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         ml1 = MeaningfulLocations(
             clusters=subscriber_location_cluster(
                 "hartigan", "2016-01-01", "2016-01-04", radius=1.0
             ),
             scores=EventScore(
-                start="2016-01-01", stop="2016-01-04", level="versioned-site"
+                start="2016-01-01",
+                stop="2016-01-04",
+                spatial_unit=make_spatial_unit("versioned-site"),
             ),
             labels={
                 "evening": {
@@ -457,7 +498,9 @@ class MeaningfulLocationsODSuite:
                 "hartigan", "2016-01-05", "2016-01-07", radius=1.0
             ),
             scores=EventScore(
-                start="2016-01-05", stop="2016-01-07", level="versioned-site"
+                start="2016-01-05",
+                stop="2016-01-07",
+                spatial_unit=make_spatial_unit("versioned-site"),
             ),
             labels={
                 "evening": {
@@ -480,7 +523,9 @@ class MeaningfulLocationsODSuite:
             ml1.store().result()
             ml2.store().result()
         self.query = MeaningfulLocationsOD(
-            meaningful_locations_a=ml1, meaningful_locations_b=ml2, level=args[-2]
+            meaningful_locations_a=ml1,
+            meaningful_locations_b=ml2,
+            spatial_unit=spatial_unit,
         )
         self.query.turn_off_caching()
 
@@ -496,7 +541,10 @@ class TotalNetworkObjectsSuite:
         {
             "total_by": ["minute", "day"],
             "network_object": ["cell", "versioned-cell", "versioned-site"],
-            "level": ["admin0", "admin3"],
+            "spatial_unit": [
+                {"spatial_unit_type": "admin", "level": 0},
+                {"spatial_unit_type": "admin", "level": 3},
+            ],
         }
     )
     timer = timeit.default_timer
@@ -504,12 +552,14 @@ class TotalNetworkObjectsSuite:
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-1]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         self.query = TotalNetworkObjects(
             "2016-01-01",
             "2016-01-07",
             total_by=args[-3],
             network_object=args[-2],
-            level=args[-1],
+            spatial_unit=spatial_unit,
         )
         self.query.turn_off_caching()
 
@@ -534,7 +584,10 @@ class AggregateNetworkObjectsSuite:
 
     def setup(self, *args):
         tno = TotalNetworkObjects(
-            "2016-01-01", "2016-01-07", total_by="minute", level="admin3"
+            "2016-01-01",
+            "2016-01-07",
+            total_by="minute",
+            spatial_unit=make_spatial_unit("admin", level=3),
         )
         do_caching = args[-1]
         if do_caching:
@@ -581,7 +634,12 @@ class DFSTotalMetricAmountSuite:
 class LocationIntroversionSuite:
     params, param_names = make_params(
         {
-            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "spatial_unit": [
+                {"spatial_unit_type": "cell"},
+                {"spatial_unit_type": "versioned-cell"},
+                {"spatial_unit_type": "admin", "level": 3},
+                {"spatial_unit_type": "admin", "level": 0},
+            ],
             "direction": ["in", "both"],
         }
     )
@@ -590,8 +648,10 @@ class LocationIntroversionSuite:
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-2]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         self.query = LocationIntroversion(
-            "2016-01-01", "2016-01-07", level=args[-2], direction=args[-1]
+            "2016-01-01", "2016-01-07", spatial_unit=spatial_unit, direction=args[-1]
         )
         self.query.turn_off_caching()
 
@@ -605,7 +665,12 @@ class LocationIntroversionSuite:
 class UniqueSubscriberCountsSuite:
     params, param_names = make_params(
         {
-            "level": ["cell", "versioned-cell", "admin3", "admin0"],
+            "spatial_unit": [
+                {"spatial_unit_type": "cell"},
+                {"spatial_unit_type": "versioned-cell"},
+                {"spatial_unit_type": "admin", "level": 3},
+                {"spatial_unit_type": "admin", "level": 0},
+            ],
             "hours": [(4, 17), "all"],
         }
     )
@@ -614,8 +679,10 @@ class UniqueSubscriberCountsSuite:
     version = 0
 
     def setup(self, *args):
+        spatial_unit_params = args[-2]
+        spatial_unit = make_spatial_unit(**spatial_unit_params)
         self.query = UniqueSubscriberCounts(
-            "2016-01-01", "2016-01-07", level=args[-2], hours=args[-1]
+            "2016-01-01", "2016-01-07", spatial_unit=spatial_unit, hours=args[-1]
         )
         self.query.turn_off_caching()
 
