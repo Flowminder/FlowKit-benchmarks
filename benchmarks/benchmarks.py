@@ -167,7 +167,7 @@ class ModalLocationWithCaching:
         {"n_cached": [0, 3, 7], "daily_location_method": ["last", "most-common"]}
     )
     timer = timeit.default_timer
-    timeout = 1200
+    timeout = 1800
     version = 0
 
     def setup(self, *args):
@@ -558,7 +558,7 @@ class TotalNetworkObjectsSuite:
             "2016-01-01",
             "2016-01-07",
             total_by=args[-3],
-            network_object=args[-2],
+            network_object=make_spatial_unit(args[-2]),
             spatial_unit=spatial_unit,
         )
         self.query.turn_off_caching()
