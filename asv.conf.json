@@ -3,16 +3,23 @@
     "project_url": "https://github.com/Flowminder/FlowKit",
     "repo": "https://github.com/Flowminder/FlowKit.git",
     "repo_subdir": "flowmachine",
+    "uninstall_command": [
+        "return-code=any python -mpip uninstall -y flowmachine"
+    ],
     "matrix": {
         "docker": [],
         "halo": [],
         "git+ssh://git@github.com/Flowminder/synthie.git#egg=synthie": []
     },
-    "branches": ["master"],
+    "branches": [
+        "master"
+    ],
     "dvcs": "git",
     "environment_type": "virtualenv",
     "show_commit_url": "https://github.com/Flowminder/FlowKit/commit/",
-    "pythons": ["3.7"],
+    "pythons": [
+        "3.7"
+    ],
     "benchmark_dir": "benchmarks",
     "env_dir": "env",
     "results_dir": "results",
