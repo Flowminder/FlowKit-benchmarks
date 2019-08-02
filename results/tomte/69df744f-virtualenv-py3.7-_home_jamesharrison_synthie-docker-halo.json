@@ -1131,8 +1131,8 @@
                     "False"
                 ],
                 [
-                    "'versioned-cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "(4, 17)",
@@ -1228,8 +1228,8 @@
                     "False"
                 ],
                 [
-                    "'versioned-cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "(4, 17)",
@@ -1517,10 +1517,10 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'versioned-cell'",
-                    "'admin3'",
-                    "'admin0'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}",
+                    "{'spatial_unit_type': 'admin', 'level': 0}"
                 ],
                 [
                     "'in'",
@@ -1676,10 +1676,10 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'versioned-cell'",
-                    "'admin3'",
-                    "'admin0'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}",
+                    "{'spatial_unit_type': 'admin', 'level': 0}"
                 ],
                 [
                     "'in'",
@@ -1721,8 +1721,8 @@
                     "False"
                 ],
                 [
-                    "'admin1'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 1}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "True",
@@ -1818,8 +1818,8 @@
                     "False"
                 ],
                 [
-                    "'admin1'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 1}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "True",
@@ -1857,8 +1857,8 @@
                     "False"
                 ],
                 [
-                    "'admin1'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 1}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "True",
@@ -1954,8 +1954,8 @@
                     "False"
                 ],
                 [
-                    "'admin1'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 1}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "True",
@@ -2299,8 +2299,8 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "'day'",
@@ -2460,8 +2460,8 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "'day'",
@@ -2516,8 +2516,8 @@
                     "'versioned-site'"
                 ],
                 [
-                    "'admin0'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 0}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ]
             ],
             "result": [
@@ -2738,8 +2738,8 @@
                     "'versioned-site'"
                 ],
                 [
-                    "'admin0'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'admin', 'level': 0}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ]
             ],
             "result": [
@@ -2781,10 +2781,10 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'versioned-cell'",
-                    "'admin3'",
-                    "'admin0'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}",
+                    "{'spatial_unit_type': 'admin', 'level': 0}"
                 ],
                 [
                     "(4, 17)",
@@ -2940,10 +2940,10 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'versioned-cell'",
-                    "'admin3'",
-                    "'admin0'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'versioned-cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}",
+                    "{'spatial_unit_type': 'admin', 'level': 0}"
                 ],
                 [
                     "(4, 17)",

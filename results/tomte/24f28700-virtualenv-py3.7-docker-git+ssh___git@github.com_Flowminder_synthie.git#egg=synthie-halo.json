@@ -685,8 +685,8 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "'day'",
@@ -846,8 +846,8 @@
                     "False"
                 ],
                 [
-                    "'cell'",
-                    "'admin3'"
+                    "{'spatial_unit_type': 'cell'}",
+                    "{'spatial_unit_type': 'admin', 'level': 3}"
                 ],
                 [
                     "'day'",
