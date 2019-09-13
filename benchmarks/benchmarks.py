@@ -11,7 +11,9 @@ from flowmachine.features import (
     ModalLocation,
     Flows,
     TotalLocationEvents,
-    subscriber_location_cluster,
+    HartiganCluster,
+    CallDays,
+    SubscriberLocations,
     EventScore,
     MeaningfulLocations,
     MeaningfulLocationsAggregate,
@@ -301,8 +303,16 @@ class HartiganClusterSuite:
     version = 0
 
     def setup(self, *args):
-        self.query = subscriber_location_cluster(
-            "hartigan", "2016-01-01", "2016-01-07", hours=args[-2], radius=args[-1]
+        self.query = HartiganCluster(
+            calldays=CallDays(
+                SubscriberLocations(
+                    start="2016-01-01",
+                    stop="2016-01-07",
+                    hours=args[-2],
+                    spatial_unit=make_spatial_unit("versioned-site"),
+                )
+            ),
+            radius=args[-1],
         )
         self.query.turn_off_caching()
 
@@ -354,8 +364,15 @@ class MeaningfulLocationsSuite:
     version = 0
 
     def setup(self, *args):
-        hc = subscriber_location_cluster(
-            "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+        hc = HartiganCluster(
+            calldays=CallDays(
+                SubscriberLocations(
+                    start="2016-01-01",
+                    stop="2016-01-07",
+                    spatial_unit=make_spatial_unit("versioned-site"),
+                )
+            ),
+            radius=1.0,
         )
         es = EventScore(
             start="2016-01-01",
@@ -412,8 +429,15 @@ class MeaningfulLocationsAggregateSuite:
         spatial_unit_params = args[-2]
         spatial_unit = make_spatial_unit(**spatial_unit_params)
         ml = MeaningfulLocations(
-            clusters=subscriber_location_cluster(
-                "hartigan", "2016-01-01", "2016-01-07", radius=1.0
+            clusters=HartiganCluster(
+                calldays=CallDays(
+                    SubscriberLocations(
+                        start="2016-01-01",
+                        stop="2016-01-07",
+                        spatial_unit=make_spatial_unit("versioned-site"),
+                    )
+                ),
+                radius=1.0,
             ),
             scores=EventScore(
                 start="2016-01-01",
@@ -469,8 +493,15 @@ class MeaningfulLocationsODSuite:
         spatial_unit_params = args[-2]
         spatial_unit = make_spatial_unit(**spatial_unit_params)
         ml1 = MeaningfulLocations(
-            clusters=subscriber_location_cluster(
-                "hartigan", "2016-01-01", "2016-01-04", radius=1.0
+            clusters=HartiganCluster(
+                calldays=CallDays(
+                    SubscriberLocations(
+                        start="2016-01-01",
+                        stop="2016-01-04",
+                        spatial_unit=make_spatial_unit("versioned-site"),
+                    )
+                ),
+                radius=1.0,
             ),
             scores=EventScore(
                 start="2016-01-01",
@@ -494,8 +525,15 @@ class MeaningfulLocationsODSuite:
             label="day",
         )
         ml2 = MeaningfulLocations(
-            clusters=subscriber_location_cluster(
-                "hartigan", "2016-01-05", "2016-01-07", radius=1.0
+            clusters=HartiganCluster(
+                calldays=CallDays(
+                    SubscriberLocations(
+                        start="2016-01-01",
+                        stop="2016-01-07",
+                        spatial_unit=make_spatial_unit("versioned-site"),
+                    )
+                ),
+                radius=1.0,
             ),
             scores=EventScore(
                 start="2016-01-05",
