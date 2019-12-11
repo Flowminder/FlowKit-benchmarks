@@ -13,4 +13,4 @@ FLOWDB_CONFIG_PARAM_NAMES = [
 ]
 
 
-FLOWDB_CONFIGS = [(7, 1000, 400, 10000, True, True, False)]
+FLOWDB_CONFIGS = [(7, 1000, 400, 10000, True, True, True)]

@@ -25,7 +25,7 @@ class FlowDBConfig:
         num_calls_per_day=1000,
         analyze=False,
         cluster=False,
-        jit=False,
+        jit=True,
         stats_target=1000,
         seed=1234,
         indexes=["msisdn", "msisdn_counterpart", "tac", "location_id", "datetime"],
@@ -116,7 +116,7 @@ class FlowDBConfig:
             "FLOWMACHINE_FLOWDB_PASSWORD": "foo",
             "FLOWAPI_FLOWDB_PASSWORD": "foo",
             "POSTGRES_PASSWORD": "flowflow",
-            "JIT": self.jit,
+            "NO_USE_JIT": not self.jit,
             "STATS_TARGET": self.stats_target,
         }
         # Create a container
@@ -327,7 +327,7 @@ class FlowDBConfig:
             num_cells=self.num_cells,
             analyze=False,
             cluster=False,
-            jit=False,
+            jit=True,
             stats_target=1000,
             root_directory=self.root_directory,
         )
