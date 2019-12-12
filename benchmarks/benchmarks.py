@@ -25,10 +25,8 @@ from flowmachine.features import (
     RadiusOfGyration,
 )
 from flowmachine.features.dfs import DFSTotalMetricAmount
-from flowmachine.features.utilities.spatial_aggregates import (
-    SpatialAggregate,
-    JoinedSpatialAggregate,
-)
+from flowmachine.features.location.spatial_aggregate import SpatialAggregate
+from flowmachine.features.location.joined_spatial_aggregate import JoinedSpatialAggregate
 from .utils import *
 from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
