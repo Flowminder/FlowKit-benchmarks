@@ -730,6 +730,8 @@ class UniqueSubscriberCountsSuite:
 
 
 class RadiusOfGyrationSuite:
+    # This line is required, otherwise runs with different FlowDB config options will overwrite each other
+    params, param_names = make_params({})
     timer = timeit.default_timer
     timeout = 1200
     version = 0
