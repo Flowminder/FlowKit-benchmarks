@@ -35,7 +35,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "True",
@@ -89,7 +89,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "True",
@@ -140,7 +140,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "True",
@@ -189,7 +189,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "True",
@@ -238,7 +238,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'avg'",
@@ -302,7 +302,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'avg'",
@@ -363,7 +363,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'amount'",
@@ -419,7 +419,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'amount'",
@@ -472,7 +472,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'last'",
@@ -521,7 +521,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'last'",
@@ -569,7 +569,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'versioned-cell'}",
@@ -623,7 +623,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'versioned-cell'}",
@@ -674,7 +674,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "0",
@@ -724,7 +724,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "0",
@@ -773,7 +773,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "(4, 17)",
@@ -827,7 +827,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "(4, 17)",
@@ -880,7 +880,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'avg'",
@@ -944,7 +944,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'avg'",
@@ -1005,7 +1005,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1061,7 +1061,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1115,7 +1115,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1169,7 +1169,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1221,7 +1221,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1275,7 +1275,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1327,7 +1327,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'day'",
@@ -1381,7 +1381,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'day'",
@@ -1433,7 +1433,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "0",
@@ -1488,7 +1488,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "0",
@@ -1568,7 +1568,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1627,7 +1627,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1684,7 +1684,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'minute'",
@@ -1744,7 +1744,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "'minute'",
@@ -1801,7 +1801,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1857,7 +1857,7 @@
                 "True"
             ],
             [
-                "True"
+                "False"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
