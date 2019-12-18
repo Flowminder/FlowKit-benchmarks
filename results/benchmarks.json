@@ -35,7 +35,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "True",
@@ -89,7 +89,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "True",
@@ -140,7 +140,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "True",
@@ -189,7 +189,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "True",
@@ -238,7 +238,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'avg'",
@@ -302,7 +302,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'avg'",
@@ -363,7 +363,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'amount'",
@@ -419,7 +419,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'amount'",
@@ -472,7 +472,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'last'",
@@ -521,7 +521,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'last'",
@@ -569,7 +569,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'versioned-cell'}",
@@ -623,7 +623,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'versioned-cell'}",
@@ -674,7 +674,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "0",
@@ -724,7 +724,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "0",
@@ -773,7 +773,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "(4, 17)",
@@ -827,7 +827,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "(4, 17)",
@@ -880,7 +880,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'avg'",
@@ -944,7 +944,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'avg'",
@@ -1005,7 +1005,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1061,7 +1061,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1115,7 +1115,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1169,7 +1169,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1221,7 +1221,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1275,7 +1275,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'admin', 'level': 1}",
@@ -1327,7 +1327,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'day'",
@@ -1381,7 +1381,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'day'",
@@ -1433,7 +1433,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "0",
@@ -1488,7 +1488,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "0",
@@ -1510,8 +1510,38 @@
         "min_run_count": 2,
         "name": "benchmarks.RadiusOfGyrationSuite.time_query",
         "number": 0,
-        "param_names": [],
-        "params": [],
+        "param_names": [
+            "num_days",
+            "num_subscribers",
+            "num_cells",
+            "num_calls_per_day",
+            "analyze",
+            "cluster",
+            "jit"
+        ],
+        "params": [
+            [
+                "7"
+            ],
+            [
+                "1000"
+            ],
+            [
+                "400"
+            ],
+            [
+                "10000"
+            ],
+            [
+                "True"
+            ],
+            [
+                "True"
+            ],
+            [
+                "True"
+            ]
+        ],
         "processes": 2,
         "repeat": 0,
         "sample_time": 0.01,
@@ -1524,8 +1554,38 @@
     "benchmarks.RadiusOfGyrationSuite.track_cost": {
         "code": "class RadiusOfGyrationSuite:\n    def track_cost(self, *args):\n        return self.query.explain(format=\"json\")[0][\"Plan\"][\"Total Cost\"]\n\ndef setup(*args):\n    print(f\"Running setup for {args}\")\n    docker_client = docker.from_env()\n\n    flowdb_config = FlowDBConfig(*args[:6], root_directory=get_benchmark_dbs_dir())\n    flowdb_container = flowdb_config.create_db(docker_client)\n    redis_container = get_redis(docker_client)\n    flowmachine.connect(\n        flowdb_port=flowdb_container.port,\n        flowdb_host=flowdb_container.host,\n        flowdb_password=\"foo\",\n        redis_port=redis_container.port,\n        redis_host=redis_container.host,\n        redis_password=\"fm_redis\",\n    )\n    flowmachine.redis_container = redis_container\n    flowmachine.flowdb_container = flowdb_container\n    flowmachine.flowdb_config = flowdb_config\n    print(f\"Connected. Resetting cache.\")\n    flowmachine.core.cache.reset_cache(\n        flowmachine.core.Query.connection, flowmachine.core.Query.redis\n    )\n    if reuse_containers() and keep_containers_alive():\n        pass\n    elif reuse_containers():\n        update_containers_to_remove_file(flowdb_container, redis_container)\n        if not keep_flowdb_volumes():\n            update_volumes_to_remove_file(flowdb_config)\n\nclass RadiusOfGyrationSuite:\n    def setup(self, *args):\n        self.query = RadiusOfGyration(\"2016-01-01\", \"2016-01-07\")\n        self.query.turn_off_caching()",
         "name": "benchmarks.RadiusOfGyrationSuite.track_cost",
-        "param_names": [],
-        "params": [],
+        "param_names": [
+            "num_days",
+            "num_subscribers",
+            "num_cells",
+            "num_calls_per_day",
+            "analyze",
+            "cluster",
+            "jit"
+        ],
+        "params": [
+            [
+                "7"
+            ],
+            [
+                "1000"
+            ],
+            [
+                "400"
+            ],
+            [
+                "10000"
+            ],
+            [
+                "True"
+            ],
+            [
+                "True"
+            ],
+            [
+                "True"
+            ]
+        ],
         "timeout": 1200,
         "type": "track",
         "unit": "unit",
@@ -1568,7 +1628,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1627,7 +1687,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1684,7 +1744,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'minute'",
@@ -1744,7 +1804,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "'minute'",
@@ -1801,7 +1861,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
@@ -1857,7 +1917,7 @@
                 "True"
             ],
             [
-                "False"
+                "True"
             ],
             [
                 "{'spatial_unit_type': 'cell'}",
