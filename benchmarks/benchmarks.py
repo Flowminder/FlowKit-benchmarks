@@ -5,6 +5,7 @@
 import timeit
 import flowmachine
 import docker
+from abc import ABCMeta, abstractmethod
 from flowmachine.core import make_spatial_unit
 from flowmachine.features import (
     daily_location,
@@ -26,7 +27,9 @@ from flowmachine.features import (
 )
 from flowmachine.features.dfs import DFSTotalMetricAmount
 from flowmachine.features.location.spatial_aggregate import SpatialAggregate
-from flowmachine.features.location.joined_spatial_aggregate import JoinedSpatialAggregate
+from flowmachine.features.location.joined_spatial_aggregate import (
+    JoinedSpatialAggregate,
+)
 from .utils import *
 from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
@@ -119,17 +122,34 @@ def teardown(*args):
                 update_volumes_to_remove_file(flowdb_config.base)
 
 
-class DailyLocation:
-    params, param_names = make_params(
-        {"daily_location_method": ["last", "most-common"]}
-    )
+class BaseBenchmarkSuite(metaclass=ABCMeta):
+    """
+    Base class for the query benchmarks. Defines two benchmarks:
+    - time_query: Tracks the time taken to run and store the query.
+    - track_cost: Runs 'explain' on the query, and tracks the total cost.
+
+    The abstract method 'setup' must be defined in any derived class,
+    to define self.query and perform any other setup.
+    """
+
     timer = timeit.default_timer
     timeout = 1200
     version = 0
 
+    _params = ()
+    _param_names = ()
+
+    @property
+    def params(self):
+        return [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + list(self._params)
+
+    @property
+    def param_names(self):
+        return FLOWDB_CONFIG_PARAM_NAMES + list(self._param_names)
+
+    @abstractmethod
     def setup(self, *args):
-        self.query = daily_location(date="2016-01-01", method=args[-1])
-        self.query.turn_off_caching()
+        raise NotImplementedError
 
     def time_query(self, *args):
 
@@ -139,13 +159,18 @@ class DailyLocation:
         return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
 
 
-class AggregateDailyLocation:
-    params, param_names = make_params(
-        {"is_cached": [True, False], "daily_location_method": ["last", "most-common"]}
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class DailyLocation(BaseBenchmarkSuite):
+    _params = [["last", "most-common"]]
+    _param_names = ["daily_location_method"]
+
+    def setup(self, *args):
+        self.query = daily_location(date="2016-01-01", method=args[-1])
+        self.query.turn_off_caching()
+
+
+class AggregateDailyLocation(BaseBenchmarkSuite):
+    _params = [[True, False], ["last", "most-common"]]
+    _param_names = ["is_cached", "daily_location_method"]
 
     def setup(self, *args):
         dl = daily_location(date="2016-01-01", method=args[-1])
@@ -154,21 +179,11 @@ class AggregateDailyLocation:
         self.query = SpatialAggregate(locations=dl)
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
 
-        _ = self.query.store().result()
-
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class ModalLocationWithCaching:
-    params, param_names = make_params(
-        {"n_cached": [0, 3, 7], "daily_location_method": ["last", "most-common"]}
-    )
-    timer = timeit.default_timer
+class ModalLocationWithCaching(BaseBenchmarkSuite):
+    _params = [[0, 3, 7], ["last", "most-common"]]
+    _param_names = ["n_cached", "daily_location_method"]
     timeout = 1800
-    version = 0
 
     def setup(self, *args):
         dates = [
@@ -190,18 +205,10 @@ class ModalLocationWithCaching:
         self.query = ModalLocation(*daily_locs)
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class AggregateModalLocation:
-    params, param_names = make_params({"is_cached": [True, False]})
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class AggregateModalLocation(BaseBenchmarkSuite):
+    _params = [[True, False]]
+    _param_names = ["is_cached"]
 
     def setup(self, *args):
         dates = [
@@ -220,18 +227,10 @@ class AggregateModalLocation:
         self.query = SpatialAggregate(locations=ml)
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class FlowSuite:
-    params, param_names = make_params({"n_cached": [0, 1, 2]})
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class FlowSuite(BaseBenchmarkSuite):
+    _params = [[0, 1, 2]]
+    _param_names = ["n_cached"]
 
     def setup(self, *args):
         dates = [
@@ -251,27 +250,14 @@ class FlowSuite:
         self.query = Flows(*mls)
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class TotalLocationEventsSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "cell"},
-                {"spatial_unit_type": "admin", "level": 3},
-            ],
-            "interval": ["day", "min"],
-            "direction": ["out", "both"],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class TotalLocationEventsSuite(BaseBenchmarkSuite):
+    _params = [
+        [{"spatial_unit_type": "cell"}, {"spatial_unit_type": "admin", "level": 3}],
+        ["day", "min"],
+        ["out", "both"],
+    ]
+    _param_names = ["spatial_unit", "interval", "direction"]
 
     def setup(self, *args):
         spatial_unit_params = args[-3]
@@ -285,20 +271,10 @@ class TotalLocationEventsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class HartiganClusterSuite:
-    params, param_names = make_params(
-        {"hours": [(4, 17), "all"], "radius": [0.1, 10.0]}
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class HartiganClusterSuite(BaseBenchmarkSuite):
+    _params = [[(4, 17), "all"], [0.1, 10.0]]
+    _param_names = ["hours", "radius"]
 
     def setup(self, *args):
         self.query = HartiganCluster(
@@ -314,26 +290,16 @@ class HartiganClusterSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class EventScoreSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "versioned-cell"},
-                {"spatial_unit_type": "admin", "level": 3},
-            ],
-            "hours": [(4, 17), "all"],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class EventScoreSuite(BaseBenchmarkSuite):
+    _params = [
+        [
+            {"spatial_unit_type": "versioned-cell"},
+            {"spatial_unit_type": "admin", "level": 3},
+        ],
+        [(4, 17), "all"],
+    ]
+    _param_names = ["spatial_unit", "hours"]
 
     def setup(self, *args):
         spatial_unit_params = args[-2]
@@ -346,20 +312,10 @@ class EventScoreSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class MeaningfulLocationsSuite:
-    params, param_names = make_params(
-        {"label": ["day", "unknown"], "caching": [True, False]}
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class MeaningfulLocationsSuite(BaseBenchmarkSuite):
+    _params = [["day", "unknown"], [True, False]]
+    _param_names = ["label", "caching"]
 
     def setup(self, *args):
         hc = HartiganCluster(
@@ -402,26 +358,16 @@ class MeaningfulLocationsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class MeaningfulLocationsAggregateSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "admin", "level": 1},
-                {"spatial_unit_type": "admin", "level": 3},
-            ],
-            "caching": [True, False],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class MeaningfulLocationsAggregateSuite(BaseBenchmarkSuite):
+    _params = [
+        [
+            {"spatial_unit_type": "admin", "level": 1},
+            {"spatial_unit_type": "admin", "level": 3},
+        ],
+        [True, False],
+    ]
+    _param_names = ["spatial_unit", "caching"]
 
     def setup(self, *args):
         spatial_unit_params = args[-2]
@@ -466,26 +412,16 @@ class MeaningfulLocationsAggregateSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class MeaningfulLocationsODSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "admin", "level": 1},
-                {"spatial_unit_type": "admin", "level": 3},
-            ],
-            "caching": [True, False],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class MeaningfulLocationsODSuite(BaseBenchmarkSuite):
+    _params = [
+        [
+            {"spatial_unit_type": "admin", "level": 1},
+            {"spatial_unit_type": "admin", "level": 3},
+        ],
+        [True, False],
+    ]
+    _param_names = ["spatial_unit", "caching"]
 
     def setup(self, *args):
         spatial_unit_params = args[-2]
@@ -565,27 +501,17 @@ class MeaningfulLocationsODSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class TotalNetworkObjectsSuite:
-    params, param_names = make_params(
-        {
-            "total_by": ["minute", "day"],
-            "network_object": ["cell", "versioned-cell", "versioned-site"],
-            "spatial_unit": [
-                {"spatial_unit_type": "admin", "level": 0},
-                {"spatial_unit_type": "admin", "level": 3},
-            ],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class TotalNetworkObjectsSuite(BaseBenchmarkSuite):
+    _params = [
+        ["minute", "day"],
+        ["cell", "versioned-cell", "versioned-site"],
+        [
+            {"spatial_unit_type": "admin", "level": 0},
+            {"spatial_unit_type": "admin", "level": 3},
+        ],
+    ]
+    _param_names = ["total_by", "network_object", "spatial_unit"]
 
     def setup(self, *args):
         spatial_unit_params = args[-1]
@@ -599,24 +525,14 @@ class TotalNetworkObjectsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class AggregateNetworkObjectsSuite:
-    params, param_names = make_params(
-        {
-            "statistic": ["avg", "max", "min", "median", "mode", "stddev", "variance"],
-            "aggregate_by": ["hour", "month"],
-            "caching": [True, False],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class AggregateNetworkObjectsSuite(BaseBenchmarkSuite):
+    _params = [
+        ["avg", "max", "min", "median", "mode", "stddev", "variance"],
+        ["hour", "month"],
+        [True, False],
+    ]
+    _param_names = ["statistic", "aggregate_by", "caching"]
 
     def setup(self, *args):
         tno = TotalNetworkObjects(
@@ -633,23 +549,10 @@ class AggregateNetworkObjectsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class DFSTotalMetricAmountSuite:
-    params, param_names = make_params(
-        {
-            "metric": ["amount", "discount", "fee", "commission"],
-            "aggregation_unit": ["admin0", "admin3"],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class DFSTotalMetricAmountSuite(BaseBenchmarkSuite):
+    _params = [["amount", "discount", "fee", "commission"], ["admin0", "admin3"]]
+    _param_names = ["metric", "aggregation_unit"]
 
     def setup(self, *args):
         self.query = DFSTotalMetricAmount(
@@ -660,28 +563,18 @@ class DFSTotalMetricAmountSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class LocationIntroversionSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "cell"},
-                {"spatial_unit_type": "versioned-cell"},
-                {"spatial_unit_type": "admin", "level": 3},
-                {"spatial_unit_type": "admin", "level": 0},
-            ],
-            "direction": ["in", "both"],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class LocationIntroversionSuite(BaseBenchmarkSuite):
+    _params = [
+        [
+            {"spatial_unit_type": "cell"},
+            {"spatial_unit_type": "versioned-cell"},
+            {"spatial_unit_type": "admin", "level": 3},
+            {"spatial_unit_type": "admin", "level": 0},
+        ],
+        ["in", "both"],
+    ]
+    _param_names = ["spatial_unit", "direction"]
 
     def setup(self, *args):
         spatial_unit_params = args[-2]
@@ -691,28 +584,18 @@ class LocationIntroversionSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class UniqueSubscriberCountsSuite:
-    params, param_names = make_params(
-        {
-            "spatial_unit": [
-                {"spatial_unit_type": "cell"},
-                {"spatial_unit_type": "versioned-cell"},
-                {"spatial_unit_type": "admin", "level": 3},
-                {"spatial_unit_type": "admin", "level": 0},
-            ],
-            "hours": [(4, 17), "all"],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class UniqueSubscriberCountsSuite(BaseBenchmarkSuite):
+    _params = [
+        [
+            {"spatial_unit_type": "cell"},
+            {"spatial_unit_type": "versioned-cell"},
+            {"spatial_unit_type": "admin", "level": 3},
+            {"spatial_unit_type": "admin", "level": 0},
+        ],
+        [(4, 17), "all"],
+    ]
+    _param_names = ["spatial_unit", "hours"]
 
     def setup(self, *args):
         spatial_unit_params = args[-2]
@@ -722,42 +605,20 @@ class UniqueSubscriberCountsSuite:
         )
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class RadiusOfGyrationSuite:
-    # This line is required, otherwise runs with different FlowDB config options will overwrite each other
-    params, param_names = make_params({})
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
-
+class RadiusOfGyrationSuite(BaseBenchmarkSuite):
     def setup(self, *args):
         self.query = RadiusOfGyration("2016-01-01", "2016-01-07")
         self.query.turn_off_caching()
 
-    def time_query(self, *args):
-        _ = self.query.store().result()
 
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
-
-
-class JoinedSpatialAggregateRadiusOfGyrationSuite:
-    params, param_names = make_params(
-        {
-            "method": ["avg", "max", "min", "median", "mode", "stddev", "variance"],
-            "metric_cached": [True, False],
-            "locations_cached": [True, False],
-        }
-    )
-    timer = timeit.default_timer
-    timeout = 1200
-    version = 0
+class JoinedSpatialAggregateRadiusOfGyrationSuite(BaseBenchmarkSuite):
+    _params = [
+        ["avg", "max", "min", "median", "mode", "stddev", "variance"],
+        [True, False],
+        [True, False],
+    ]
+    _param_names = ["method", "metric_cached", "locations_cached"]
 
     def setup(self, *args):
         rog = RadiusOfGyration("2016-01-01", "2016-01-02")
@@ -768,9 +629,3 @@ class JoinedSpatialAggregateRadiusOfGyrationSuite:
             dl.store().result()
         self.query = JoinedSpatialAggregate(metric=rog, locations=dl, method=args[-3])
         self.query.turn_off_caching()
-
-    def time_query(self, *args):
-        _ = self.query.store().result()
-
-    def track_cost(self, *args):
-        return self.query.explain(format="json")[0]["Plan"]["Total Cost"]
