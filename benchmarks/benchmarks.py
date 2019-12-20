@@ -35,30 +35,6 @@ from .config import FLOWDB_CONFIGS, FLOWDB_CONFIG_PARAM_NAMES
 from .flowdb_config import FlowDBConfig
 
 
-def make_params(params_dict):
-    """
-    Takes a list of benchmark-specific parameters in params_dict and returns
-    the full list of parameters and their names, including the FlowDB params
-    defined in config.py
-
-    Parameters
-    ----------
-    params_dict : dict
-        A dictionary of benchmark-specific parameters.
-        Keys are parameter names, and values are lists of parameter values.
-    
-    Returns
-    -------
-    params : list of lists
-        Parameter values to be benchmarked
-    param_names : list
-        Names of the parameters in 'params'
-    """
-    params = [list(set(x)) for x in zip(*FLOWDB_CONFIGS)] + list(params_dict.values())
-    param_names = FLOWDB_CONFIG_PARAM_NAMES + list(params_dict.keys())
-    return params, param_names
-
-
 def setup(*args):
     print(f"Running setup for {args}")
     docker_client = docker.from_env()
