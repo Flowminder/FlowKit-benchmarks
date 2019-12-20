@@ -11,7 +11,6 @@ synthie = {git = "ssh://git@github.com/Flowminder/synthie.git"}
 docopt = "*"
 sh = "*"
 docker = "*"
-halo = "*"
 
 [dev-packages]
 ipython = "*"

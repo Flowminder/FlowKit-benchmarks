@@ -12,8 +12,9 @@ from time import sleep
 import pandas as pd
 import psycopg2 as pg
 from synthie.synthetic_cdr_data import export_synthetic_cdr_data
-from halo import Halo
 import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 
 class FlowDBConfig:
@@ -64,53 +65,50 @@ class FlowDBConfig:
             os.remove(self.root_directory / self.volume_name / "tuned")
         except FileNotFoundError as e:  # Directory will be created
             (self.root_directory / self.volume_name).mkdir(parents=True)
-            logging.debug(
+            logging.info(
                 f"No base found, flowdb will set up at {self.root_directory / self.volume_name}"
             )
         except FileExistsError as e:  # Already setup here
-            logging.debug(
+            logging.info(
                 f"{self.root_directory / self.volume_name} already exists, setup will be skipped."
             )
         return self.root_directory / self.volume_name
 
     def create_db(self, client):
         try:
+            logging.info(f"Getting container {self.volume_name}.")
             flowdb_container = client.containers.get(self.volume_name)
             port_config = client.api.inspect_container(flowdb_container.id)[
                 "NetworkSettings"
             ]["Ports"]["5432/tcp"][0]
             flowdb_container.port = port_config["HostPort"]
             flowdb_container.host = port_config["HostIp"]
+            logging.info(f"Returning container {self.volume_name}.")
             return flowdb_container
         except docker.errors.NotFound:
-            pass  # Make the container instead
-        dir_path = self.root_directory / self.volume_name
-        spinner = Halo(
-            text=f"Creating FlowDB for params {self.__dict__} at {self.volume_name}",
-            spinner="dots",
+            # Make the container instead
+            logging.info(f"Container {self.volume_name} not found. Creating.")
+
+        logging.info(
+            f"Creating FlowDB for params {self.__dict__} at {self.volume_name}"
         )
-        spinner.start()
-        spinner.info()
+
+        logging.info(f"Checking for base FlowDB.")
         if not self.base.is_created and self.volume_name != self.base.volume_name:
-            spinner.text = f"Creating base flowdb ({self.base.__dict__}) "
-            spinner.info()
-            spinner.start()
+            logging.info(f"Creating base FlowDB ({self.base.__dict__}) ")
             self.base.create_db(client).stop()
+            logging.info("Created base FlowDB.")
         else:
             if self.volume_name == self.base.volume_name:
-                spinner.text = "Am base."
-                spinner.info()
+                logging.info("Am base.")
             if self.base.is_created:
-                spinner.text = "Base already created."
-                spinner.info()
+                logging.info("Base already created.")
 
-        spinner.succeed()
-        spinner.text = f"Copying base FlowDB from {self.base.volume_name}"
-        spinner.start()
+        logging.info(f"Copying base FlowDB from {self.base.volume_name}")
         db_path = self.copy_base()
-        spinner.succeed()
-        spinner.text = "Creating container"
-        spinner.start()
+        logging.info("Copied base FlowDB.")
+
+        logging.info("Creating container")
         # In-container config
         environment = {
             "FLOWMACHINE_FLOWDB_PASSWORD": "foo",
@@ -142,10 +140,10 @@ class FlowDBConfig:
             },
             user=f"{os.geteuid()}:{os.getegid()}",
         )
-        spinner.succeed(f"Created container: {flowdb_container.name}")
+        logging.info(f"Created container: {flowdb_container.name}")
+
         # Wait for container to be 'healthy'
-        spinner.text = "Waiting for container to be ready."
-        spinner.start()
+        logging.info("Waiting for container to be ready.")
         try:
             while (
                 flowdb_container.exec_run("pg_isready -h localhost -U flowdb").exit_code
@@ -157,21 +155,25 @@ class FlowDBConfig:
             logging.error(f"{e}")
             raise e
         # Force a config update and restart
-        spinner.text = "Updating configuration.."
+        logging.info("Updating configuration.")
         flowdb_container.exec_run(
             "bash /docker-entrypoint-initdb.d/002_tweak_config.sh"
         )
+        logging.info("Restarting container.")
         flowdb_container.restart()
-        spinner.succeed()
-        spinner.text = "Waiting for container to be ready."
-        spinner.start()
-        while (
-            flowdb_container.exec_run("pg_isready -h localhost -U flowdb").exit_code
-            != 0
-        ):
-            sleep(5)
-        spinner.text = "Container ready."
-        spinner.succeed()
+        logging.info("Waiting for container to be ready.")
+        try:
+            while (
+                flowdb_container.exec_run("pg_isready -h localhost -U flowdb").exit_code
+                != 0
+            ):
+                sleep(5)
+        except Exception as e:
+            logging.error(flowdb_container.__dict__["attrs"]["State"])
+            logging.error(f"{e}")
+            raise e
+        logging.info("Container ready.")
+
         port_config = client.api.inspect_container(flowdb_container.id)[
             "NetworkSettings"
         ]["Ports"]["5432/tcp"][0]
@@ -193,28 +195,25 @@ class FlowDBConfig:
             ).exit_code
             == 1
         ):
-            spinner.text = "Populating."
-            spinner.start()
+            logging.info("Populating.")
             self.populate_db(flowdb_container)
             flowdb_container.exec_run("touch /var/lib/postgresql/data/populated")
-            spinner.succeed()
+            logging.info("Populated.")
         else:
-            spinner.text = "Populated."
-            spinner.succeed()
+            logging.info("Already populated.")
 
         if (
             flowdb_container.exec_run("[ -e /var/lib/postgresql/data/tuned ]").exit_code
             == 1
         ):
-            spinner.text = "Tuning."
-            spinner.start()
+            logging.info("Tuning.")
             self.tune_table(flowdb_container)
             flowdb_container.exec_run("touch /var/lib/postgresql/data/tuned")
-            spinner.succeed()
+            logging.info("Tuned.")
         else:
-            spinner.text = "Tuned."
-            spinner.succeed()
+            logging.info("Already tuned.")
 
+        logging.info(f"Returning container {self.volume_name}.")
         return flowdb_container
 
     def populate_db(self, container):
@@ -243,35 +242,36 @@ class FlowDBConfig:
             d.date().strftime("%Y%m%d")
             for d in pd.date_range("2016-01-01", periods=self.num_days)
         ]
-        spinner = Halo(text="Tuning tables.", spinner="dots")
-        spinner.start()
+        logging.info("Tuning tables.")
         with conn:
             with conn.cursor() as curs:
                 for d in date_range:
                     table = f"calls_{d}"
                     for ix in self.indexes:
-                        spinner.text = f"Indexing {table} on {ix}"
+                        logging.info(f"Indexing {table} on {ix}")
                         curs.execute(
                             f"CREATE INDEX IF NOT EXISTS {table}_{ix}_idx ON events.{table} ({ix});"
                         )
-                        spinner.succeed()
+                        logging.info(f"Indexed {table} on {ix}")
                     if self.cluster and len(self.indexes) > 0:
-                        spinner.text = (
+                        logging.info(
                             f"Clustering {table} on {table}_{self.indexes[0]}_idx"
                         )
                         curs.execute(
                             f"CLUSTER events.{table} USING {table}_{self.indexes[0]}_idx;"
                         )
-                        spinner.succeed()
+                        logging.info(
+                            f"Clustered {table} on {table}_{self.indexes[0]}_idx"
+                        )
                     if self.analyze:
-                        spinner.text = f"Analyzing {table}"
+                        logging.info(f"Analyzing {table}")
                         curs.execute(f"ANALYZE events.{table};")
-                        spinner.succeed()
+                        logging.info(f"Analyzed {table}")
 
                 if self.analyze:
-                    spinner.text = "Analyzing events.calls"
+                    logging.info("Analyzing events.calls")
                     curs.execute(f"ANALYZE events.calls;")
-                    spinner.succeed()
+                    logging.info("Analyzed events.calls")
         conn.close()
 
     @property
